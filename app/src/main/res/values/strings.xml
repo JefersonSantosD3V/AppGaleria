@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AppGaleria</string>
+    <string name="btn_acessar">ENTRAR</string>
+    <string name="btn_gmail">Sing In With Google</string>
+    <string name="cb_lembrar">Lembrar</string>
+    <string name="btn_cadastrar">Cadastrar</string>
+    <string name="txt_recuperar_senha">Recuperar Senha</string>
+    <string name="titulo_cadastro">Cadastrar</string>
+</resources>
