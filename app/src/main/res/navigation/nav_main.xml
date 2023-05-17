@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/menu_home">
+
+    <fragment
+        android:id="@+id/menu_home"
+        android:name="br.com.appgaleria.costura.diferente.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/menu_molde"
+        android:name="br.com.appgaleria.costura.diferente.fragments.MoldeFragment"
+        android:label="fragment_molde"
+        tools:layout="@layout/fragment_molde" />
+    <fragment
+        android:id="@+id/menu_favorito"
+        android:name="br.com.appgaleria.costura.diferente.fragments.FavoritoFragment"
+        android:label="fragment_favorito"
+        tools:layout="@layout/fragment_favorito" />
+    <fragment
+        android:id="@+id/menu_aviamento"
+        android:name="br.com.appgaleria.costura.diferente.fragments.AviamentoFragment"
+        android:label="fragment_aviamento"
+        tools:layout="@layout/fragment_aviamento" />
+    <fragment
+        android:id="@+id/menu_contato"
+        android:name="br.com.appgaleria.costura.diferente.fragments.ContatoFragment"
+        android:label="fragment_contato"
+        tools:layout="@layout/fragment_contato" />
+</navigation>

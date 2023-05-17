@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_molde"
+        android:title="@string/menu_molde"
+        android:icon="@drawable/ic_molde"/>
+    <item
+        android:id="@+id/menu_favorito"
+        android:title="@string/menu_favorito"
+        android:icon="@drawable/ic_favorito"/>
+    <item
+        android:id="@+id/menu_home"
+        android:title="@string/menu_home"
+        android:icon="@drawable/ic_home" />
+    <item
+        android:id="@+id/menu_aviamento"
+        android:title="@string/menu_aviamento"
+        android:icon="@drawable/ic_aviamento"/>
+    <item
+        android:id="@+id/menu_contato"
+        android:title="@string/menu_contato"
+        android:icon="@drawable/ic_contato"/>
+</menu>
