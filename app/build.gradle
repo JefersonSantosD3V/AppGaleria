@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'br.com.appgaleria.costura.diferente'
-    compileSdk 30
+    compileSdk 33
 
     defaultConfig {
         applicationId "br.com.appgaleria.costura.diferente"
@@ -29,7 +29,7 @@ android {
     viewBinding{
         enabled = true
     }
-    buildToolsVersion '30.0.3'
+    buildToolsVersion '33.0.2'
 }
 
 dependencies {
