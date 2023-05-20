@@ -24,12 +24,12 @@ public class MenuActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        //iniciaNavigation();
+        iniciaNavigation();
     }
-/*
+
     private void iniciaNavigation() {
-        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         navController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(binding.menuNavegacao,navController);
-    }*/
+        NavigationUI.setupWithNavController(binding.bottomNavigationView,navController);
+    }
 }
