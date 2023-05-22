@@ -5,6 +5,33 @@
     android:id="@+id/nav_main"
     app:startDestination="@id/menu_home">
 
+   <activity
+       android:id="@+id/menu_home"
+       android:name="br.com.appgaleria.costura.diferente.HomeActivity"
+       android:label="activity_home"
+       tools:layout="@layout/activity_home" />
+   <activity
+       android:id="@+id/menu_molde"
+       android:name="br.com.appgaleria.costura.diferente.MoldeActivity"
+       android:label="activity_molde"
+       tools:layout="@layout/activity_molde" />
+   <activity
+       android:id="@+id/menu_favorito"
+       android:name="br.com.appgaleria.costura.diferente.FavoritoActivity"
+       android:label="activity_favorito"
+       tools:layout="@layout/activity_favorito" />
+   <activity
+       android:id="@+id/menu_aviamento"
+       android:name="br.com.appgaleria.costura.diferente.AviamentoActivity"
+       android:label="activity_aviamento"
+       tools:layout="@layout/activity_aviamento" />
+   <activity
+       android:id="@+id/menu_contato"
+       android:name="br.com.appgaleria.costura.diferente.ContatoActivity"
+       android:label="activity_contato"
+       tools:layout="@layout/activity_contato" />
+
+<!--
     <fragment
         android:id="@+id/menu_home"
         android:name="br.com.appgaleria.costura.diferente.fragments.HomeFragment"
@@ -25,9 +52,13 @@
         android:name="br.com.appgaleria.costura.diferente.fragments.AviamentoFragment"
         android:label="fragment_aviamento"
         tools:layout="@layout/fragment_aviamento" />
+
     <fragment
         android:id="@+id/menu_contato"
         android:name="br.com.appgaleria.costura.diferente.fragments.ContatoFragment"
         android:label="fragment_contato"
         tools:layout="@layout/fragment_contato" />
+
+   -->
+
 </navigation>

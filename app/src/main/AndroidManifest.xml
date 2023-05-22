@@ -12,20 +12,42 @@
         android:theme="@style/Theme.AppGaleria"
         tools:targetApi="30">
         <activity
+            android:name=".CadastroAviamentoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CadastroContatoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ContatoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AviamentoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MoldeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavoritoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
-            android:exported="false" android:screenOrientation="portrait"/>
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RecuperarActivity"
-            android:exported="false" android:screenOrientation="portrait" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CadastroActivity"
-            android:exported="false" android:screenOrientation="portrait"/>
-        <activity
-            android:name=".MenuActivity"
-            android:exported="false" android:screenOrientation="portrait"/>
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" android:screenOrientation="portrait">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
