@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastroAviamentoActivity"
+    tools:context=".activity.cadastros.CadastroAviamentoActivity"
     android:background="@drawable/gradient_background">
 
     <TextView
@@ -30,16 +30,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <EditText
-        android:id="@+id/cadAvi_edit_codigo"
-        style="@style/Edit_Text"
-        android:hint="Código"
-        android:inputType="number"
-        android:layout_marginTop="10dp"
-        android:singleLine="false"
-        app:layout_constraintTop_toTopOf="@id/cadAvi_container_componentes"
-        app:layout_constraintStart_toStartOf="@id/cadAvi_container_componentes"
-        app:layout_constraintEnd_toEndOf="@id/cadAvi_container_componentes"/>
 
     <EditText
         android:id="@+id/cadAvi_edit_nome"
@@ -48,7 +38,7 @@
         android:inputType="text"
         android:layout_marginTop="10dp"
         android:singleLine="false"
-        app:layout_constraintTop_toBottomOf="@id/cadAvi_edit_codigo"
+        app:layout_constraintTop_toTopOf="@id/cadAvi_container_componentes"
         app:layout_constraintStart_toStartOf="@id/cadAvi_container_componentes"
         app:layout_constraintEnd_toEndOf="@id/cadAvi_container_componentes"/>
 
@@ -65,7 +55,7 @@
     <EditText
         android:id="@+id/cadAvi_edit_quantidade"
         style="@style/Edit_Text"
-        android:hint="Qunatidade"
+        android:hint="Quantidade"
         android:layout_marginTop="10dp"
         android:singleLine="false"
         app:layout_constraintTop_toBottomOf="@id/cadAvi_edit_descricao"

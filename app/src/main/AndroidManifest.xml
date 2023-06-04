@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,40 +17,46 @@
         android:theme="@style/Theme.AppGaleria"
         tools:targetApi="30">
         <activity
-            android:name=".CadastroAviamentoActivity"
+            android:name=".activity.cadastros.CadastroMoldeActivity"
             android:exported="false" />
         <activity
-            android:name=".CadastroContatoActivity"
+            android:name=".activity.ResultadoConsultaActivity"
             android:exported="false" />
         <activity
-            android:name=".ContatoActivity"
+            android:name=".activity.cadastros.CadastroAviamentoActivity"
             android:exported="false" />
         <activity
-            android:name=".AviamentoActivity"
+            android:name=".activity.cadastros.CadastroContatoActivity"
             android:exported="false" />
         <activity
-            android:name=".MoldeActivity"
+            android:name=".activity.ContatoActivity"
             android:exported="false" />
         <activity
-            android:name=".FavoritoActivity"
+            android:name=".activity.AviamentoActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activity.MoldeActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.FavoritoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RecuperarActivity"
+            android:name=".activity.RedefinirSenhaActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CadastroActivity"
+            android:name=".activity.cadastros.CadastroUsuarioActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

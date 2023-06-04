@@ -1,95 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".MoldeActivity">
+    tools:context=".activity.MoldeActivity">
+
+
+    <RadioGroup
+        android:id="@+id/molde_rg_categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <RadioButton
+            android:id="@+id/molde_rb_top"
+            android:text="Top"
+            android:textSize="20sp"
+            android:buttonTint="@color/purple_200"
+            android:onClick="opcaoCategoria"
+            tools:ignore="HardcodedText"
+            android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        <RadioButton
+            android:id="@+id/molde_rb_bottom"
+            android:text="Bottom"
+            android:textSize="20sp"
+            android:buttonTint="@color/purple_200"
+            android:onClick="opcaoCategoria"
+            tools:ignore="HardcodedText"
+            android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        <RadioButton
+            android:id="@+id/molde_rb_hibrido"
+            android:text="Híbrido"
+            android:textSize="20sp"
+            android:buttonTint="@color/purple_200"
+            android:onClick="opcaoCategoria"
+            tools:ignore="HardcodedText"
+            android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+        <RadioButton
+            android:id="@+id/molde_rb_outros"
+            android:text="Outros"
+            android:textSize="20sp"
+            android:buttonTint="@color/purple_200"
+            android:layout_weight="1"
+            android:onClick="opcaoCategoria"
+            tools:ignore="HardcodedText"
+            android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+    </RadioGroup>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/molde_txt_inputlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="5dp"
+        android:hint="Categoria"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/molde_rg_categoria"
+        tools:ignore="HardcodedText">
+
+        <AutoCompleteTextView
+            android:id="@+id/molde_autocomplete_dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:inputType="none"
+            tools:ignore="LabelFor" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <RadioGroup
+        android:id="@+id/molde_rg_genero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"
+        android:gravity="left"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/molde_txt_inputlayout"
+        tools:ignore="RtlHardcoded">
+        <RadioButton
+            android:id="@+id/molde_rb_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="opcaoGenero"
+            android:text="Agênero"
+            android:textSize="20sp"
+            android:buttonTint="@color/purple_200"
+            tools:ignore="HardcodedText" />
+        <RadioButton
+            android:id="@+id/molde_rb_fem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="opcaoGenero"
+            android:text="Feminino"
+            android:textSize="20sp"
+            android:buttonTint="@color/purple_200"
+            tools:ignore="HardcodedText" />
+        <RadioButton
+            android:id="@+id/molde_rb_masc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="opcaoGenero"
+            android:text="Masculino"
+            android:textSize="20sp"
+            android:buttonTint="@color/purple_200"
+            tools:ignore="HardcodedText" />
+    </RadioGroup>
+
+
+    <ToggleButton
+        android:id="@+id/molde_tb_pp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textOn="PP"
+        android:textOff="PP"
+        android:textStyle="bold"
+        android:alpha="0.8"
+        android:onClick="opcaoTamanho"
+        android:background="@drawable/toggle_color_on_off"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/molde_tb_p"
+        app:layout_constraintTop_toBottomOf="@id/molde_rg_genero"
+        tools:ignore="HardcodedText"/>
+    <ToggleButton
+        android:id="@+id/molde_tb_p"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textOn="P"
+        android:textOff="P"
+        android:textStyle="bold"
+        android:alpha="0.8"
+        android:onClick="opcaoTamanho"
+        android:background="@drawable/toggle_color_on_off"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toEndOf="@+id/molde_tb_pp"
+        app:layout_constraintEnd_toStartOf="@+id/molde_tb_m"
+        app:layout_constraintTop_toBottomOf="@id/molde_rg_genero"
+        tools:ignore="HardcodedText"/>
+    <ToggleButton
+        android:id="@+id/molde_tb_m"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textOn="M"
+        android:textOff="M"
+        android:textStyle="bold"
+        android:alpha="0.8"
+        android:onClick="opcaoTamanho"
+        android:background="@drawable/toggle_color_on_off"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toEndOf="@+id/molde_tb_p"
+        app:layout_constraintEnd_toStartOf="@+id/molde_tb_g"
+        app:layout_constraintTop_toBottomOf="@id/molde_rg_genero"
+        tools:ignore="HardcodedText"/>
+    <ToggleButton
+        android:id="@+id/molde_tb_g"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textOn="G"
+        android:textOff="G"
+        android:textStyle="bold"
+        android:alpha="0.8"
+        android:onClick="opcaoTamanho"
+        android:background="@drawable/toggle_color_on_off"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toEndOf="@+id/molde_tb_m"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/molde_rg_genero"
+        tools:ignore="HardcodedText"/>
+    <ToggleButton
+        android:id="@+id/molde_tb_gg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textOn="GG"
+        android:textOff="GG"
+        android:textStyle="bold"
+        android:alpha="0.8"
+        android:onClick="opcaoTamanho"
+        android:background="@drawable/toggle_color_on_off"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/molde_tb_eg"
+        app:layout_constraintTop_toBottomOf="@+id/molde_tb_pp"
+        tools:ignore="HardcodedText"/>
+    <ToggleButton
+        android:id="@+id/molde_tb_eg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textOn="EG"
+        android:textOff="EG"
+        android:textStyle="bold"
+        android:alpha="0.8"
+        android:onClick="opcaoTamanho"
+        android:background="@drawable/toggle_color_on_off"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toEndOf="@+id/molde_tb_gg"
+        app:layout_constraintEnd_toStartOf="@+id/molde_tb_sm"
+        app:layout_constraintTop_toBottomOf="@id/molde_tb_p"
+        tools:ignore="HardcodedText"/>
+    <ToggleButton
+        android:id="@+id/molde_tb_sm"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textOn="SM"
+        android:textOff="SM"
+        android:textStyle="bold"
+        android:alpha="0.8"
+        android:onClick="opcaoTamanho"
+        android:background="@drawable/toggle_color_on_off"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toEndOf="@+id/molde_tb_eg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/molde_tb_m"
+        tools:ignore="HardcodedText"/>
+
+    <!--EditText
+        android:id="@+id/molde_tam_min"
+        style="@style/Edit_Text"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="Mín."
+        android:inputType="number"
+        android:layout_marginTop="20dp"
+        android:singleLine="false"
+        app:layout_constraintTop_toBottomOf="@+id/molde_tb_eg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/molde_tam_max"
+        tools:ignore="HardcodedText" />
+    <EditText
+        android:id="@+id/molde_tam_max"
+        style="@style/Edit_Text"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="Máx."
+        android:inputType="number"
+        android:layout_marginTop="20dp"
+        android:singleLine="false"
+        app:layout_constraintTop_toBottomOf="@+id/molde_tb_sm"
+        app:layout_constraintStart_toEndOf="@id/molde_tam_min"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText" /-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/molde_btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|right"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/purple_700"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/molde_btn_filtrar"
+        app:layout_constraintTop_toBottomOf="@+id/molde_tb_eg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription,MissingConstraints,RtlHardcoded" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/molde_btn_filtrar"
+        style="@style/Buttons_Default"
+        android:onClick="filtrar"
+        android:text="@string/btn_filtrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/molde_btn_add"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"/>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_navegacao"
-        tools:layout_editor_absoluteX="0dp"></com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    <RadioButton
-        android:id="@+id/molde_btn_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
-        android:text="Top"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/molde_btn_botton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <RadioButton
-        android:id="@+id/molde_btn_botton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="50dp"
-        android:text="Botton"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/molde_btn_hibrido"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/molde_btn_top"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <RadioButton
-        android:id="@+id/molde_btn_hibrido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="50dp"
-        android:text="Híbrido"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/molde_btn_outros"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/molde_btn_botton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <RadioButton
-        android:id="@+id/molde_btn_outros"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="30dp"
-        android:text="Outros"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/molde_btn_hibrido"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:hint="@string/txt_dropdown"
-        app:boxBackgroundColor="@color/white"
-        app:boxCornerRadiusBottomEnd="15dp"
-        app:boxCornerRadiusBottomStart="15dp"
-        app:boxCornerRadiusTopEnd="15dp"
-        app:boxCornerRadiusTopStart="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/molde_btn_hibrido">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/molde_txt_dropdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:menu="@menu/menu_navegacao">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

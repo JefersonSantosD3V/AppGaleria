@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".HomeActivity">
+    tools:context=".activity.HomeActivity">
 
     <ImageView
         android:id="@+id/home_img_fundo"
@@ -36,86 +36,85 @@
         app:layout_constraintTop_toBottomOf="@+id/home_img_logo"
         app:srcCompat="@drawable/galeria"/>
 
-    <ImageView
-        android:id="@+id/home_option"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_option" />
-
-    <ImageView
-        android:id="@+id/home_share"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
-        android:layout_margin="30dp"
-        app:srcCompat="@drawable/ic_share" />
-
-    <ImageView
-        android:id="@+id/home_facebook"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/home_share"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
-        android:layout_margin="30dp"
-        app:srcCompat="@drawable/ic_facebook" />
-
-    <ImageView
-        android:id="@+id/home_instagram"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/home_share"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
-        android:layout_margin="30dp"
-        app:srcCompat="@drawable/ic_instagram" />
-
     <TextView
         android:id="@+id/home_info"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="20dp"
+        android:alpha="0.3"
+        android:background="@color/white"
         android:focusableInTouchMode="true"
         android:gravity="center"
-        android:inputType="textImeMultiLine"
+        android:hint="Digite aqui suas informações"
+        android:inputType="textMultiLine"
         android:padding="10dp"
         android:singleLine="false"
-        android:textColor="@color/black"
-        android:hint="Digite aqui suas informações"
         android:textAlignment="center"
-        android:background="@color/white"
-        android:alpha="0.3"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/home_share"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_img_galeria" />
+        app:layout_constraintTop_toBottomOf="@id/home_img_galeria"
+        tools:ignore="HardcodedText,TextViewEdits" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/home_btn_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="bottom|right"
-        android:src="@drawable/ic_camera"
-        app:backgroundTint="@color/purple_700"
-        app:fabSize="mini"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/home_btn_salve_info"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:onClick="salvarInfo"
+        android:background="@drawable/ic_check"
         app:layout_constraintBottom_toBottomOf="@+id/home_info"
-        app:layout_constraintEnd_toEndOf="@+id/home_info" />
+        app:layout_constraintEnd_toEndOf="@+id/home_info"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/home_logout"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/ic_logout"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/home_share"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_info"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        android:background="@drawable/ic_share"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/home_facebook"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/home_share"
+        app:layout_constraintTop_toBottomOf="@+id/home_info"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        android:background="@drawable/ic_facebook" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/home_instagram"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/home_share"
+        app:layout_constraintTop_toBottomOf="@+id/home_info"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        android:background="@drawable/ic_instagram"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_navegacao"
-        tools:layout_editor_absoluteX="0dp">
+        app:menu="@menu/menu_navegacao">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

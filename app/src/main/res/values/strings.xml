@@ -4,7 +4,8 @@
     <string name="btn_gmail">Sing In With Google</string>
     <string name="cb_lembrar">Lembrar</string>
     <string name="txt_cadastrar">Cadastrar</string>
-    <string name="txt_recuperar_senha">Recuperar Senha</string>
+    <string name="txt_redefinir_senha">Redefinir\nSenha</string>
+    <string name="txt_esqueceu_senha">Esqueceu a senha?</string>
     <string name="menu_molde">Moldes</string>
     <string name="menu_favorito">Favoritos</string>
     <string name="menu_home">Home</string>
@@ -24,5 +25,50 @@
     <string name="txt_dropdown">Selecione o subgrupo</string>
     <string name="txt_cadastrar_contato">Cadastrar\nContato</string>
     <string name="txt_cadastrar_aviamento">Cadastrar\nAviamento</string>
+    <string name="txt_cadastrar_molde">Cadastrar\nMolde</string>
+    <string name="btn_filtrar">Filtrar</string>
 
+    <string-array name="categoria_top">
+        <item>Blusa</item>
+        <item>Cropped</item>
+        <item>Casaco</item>
+        <item>Camisa</item>
+        <item>Camiseta</item>
+    </string-array>
+    <string-array name="categoria_bottom">
+        <item>Calça</item>
+        <item>Saia</item>
+        <item>Short</item>
+    </string-array>
+    <string-array name="categoria_hibrido">
+        <item>Vestido</item>
+        <item>Macacão</item>
+    </string-array>
+    <string-array name="categoria_outros">
+        <item>Festa</item>
+        <item>Acessórios</item>
+    </string-array>
+
+    <string-array name="spinner_tamanho">
+        <item>PP</item>
+        <item>P</item>
+        <item>M</item>
+        <item>G</item>
+        <item>GG</item>
+        <item>EG</item>
+        <item>SM</item>
+    </string-array>
+    <string-array name="spinner_tipo">
+        <item>Top</item>
+        <item>Bottom</item>
+        <item>Híbrido</item>
+        <item>Outros</item>
+    </string-array>
+    <string-array name="spinner_genero">
+        <item>Âgenero</item>
+        <item>Feminino</item>
+        <item>Masculino</item>
+    </string-array>
+
+    <string name="action_settings">Settings</string>
 </resources>

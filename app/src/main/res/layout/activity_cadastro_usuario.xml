@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastroActivity"
+    tools:context=".activity.cadastros.CadastroUsuarioActivity"
     android:background="@drawable/gradient_background">
 
     <TextView
@@ -17,7 +17,7 @@
         android:textSize="50sp"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <EditText
+    <!--EditText
         android:id="@+id/cad_edit_nome"
         style="@style/Edit_Text"
         android:hint="Nome"
@@ -38,37 +38,40 @@
         android:singleLine="false"
         app:layout_constraintTop_toTopOf="@id/cad_container_componentes"
         app:layout_constraintStart_toStartOf="@id/cad_container_componentes"
-        app:layout_constraintEnd_toEndOf="@id/cad_container_componentes"/>
+        app:layout_constraintEnd_toEndOf="@id/cad_container_componentes"
+        tools:ignore="Autofill,HardcodedText" /-->
 
     <EditText
         android:id="@+id/cad_edit_email"
         style="@style/Edit_Text"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
-        android:drawableRight="@drawable/ic_email"
+        android:drawableEnd="@drawable/ic_email"
         android:layout_marginTop="10dp"
         android:singleLine="false"
-        app:layout_constraintTop_toBottomOf="@id/cad_edit_nome"
+        app:layout_constraintTop_toTopOf="@id/cad_container_componentes"
         app:layout_constraintStart_toStartOf="@id/cad_container_componentes"
-        app:layout_constraintEnd_toEndOf="@id/cad_container_componentes"/>
+        app:layout_constraintEnd_toEndOf="@id/cad_container_componentes"
+        tools:ignore="Autofill,HardcodedText" />
 
     <EditText
         android:id="@+id/cad_edit_senha"
         style="@style/Edit_Text"
         android:hint="Senha"
-        android:inputType="numberPassword"
-        android:drawableRight="@drawable/ic_senha"
+        android:inputType="textPassword"
+        android:drawableEnd="@drawable/ic_senha"
         android:layout_marginTop="10dp"
         android:singleLine="false"
         app:layout_constraintTop_toBottomOf="@id/cad_edit_email"
         app:layout_constraintStart_toStartOf="@id/cad_container_componentes"
-        app:layout_constraintEnd_toEndOf="@id/cad_container_componentes"/>
+        app:layout_constraintEnd_toEndOf="@id/cad_container_componentes"
+        tools:ignore="Autofill,HardcodedText" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cad_btn_cadastrar"
         style="@style/Buttons_Default"
         android:layout_marginTop="20dp"
-        android:onClick="cadastrar"
+        android:onClick="cadastrarUsuario"
         android:text="@string/txt_cadastrar"
         app:layout_constraintEnd_toEndOf="@id/cad_container_componentes"
         app:layout_constraintStart_toStartOf="@id/cad_container_componentes"
@@ -82,7 +85,7 @@
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_close"/>
-
+        app:srcCompat="@drawable/ic_close"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

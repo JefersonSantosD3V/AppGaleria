@@ -1,4 +1,4 @@
-package br.com.appgaleria.costura.diferente;
+package br.com.appgaleria.costura.diferente.activity.cadastros;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,11 +10,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import br.com.appgaleria.costura.diferente.R;
+import br.com.appgaleria.costura.diferente.activity.ContatoActivity;
+import br.com.appgaleria.costura.diferente.model.Usuario;
+
 public class CadastroContatoActivity extends AppCompatActivity {
 
     private ImageView img_btn_fechar;
-    private Button btn_cadastrar;
+    //private Button btn_cadastrar;
     private EditText txt_nome, txt_email, txt_telefone,txt_instagram,txt_facebook;
+    private FirebaseAuth autentificacao;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +54,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
             Toast.makeText(CadastroContatoActivity.this, "Telefone já cadastrado.", Toast.LENGTH_SHORT).show();
             //criar condição se deseja continuar
         } else {
-            Intent intent = new Intent(CadastroContatoActivity.this, CadastroActivity.class);
+            Intent intent = new Intent(CadastroContatoActivity.this, CadastroUsuarioActivity.class);
             startActivity(intent);
             finish();
             Toast.makeText(CadastroContatoActivity.this, "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
@@ -62,7 +70,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
 
     private void iniciarComponetes() {
         img_btn_fechar = findViewById(R.id.cadCon_btn_fechar);
-        btn_cadastrar = findViewById(R.id.cadCon_btn_cadastrar);
+        //btn_cadastrar = findViewById(R.id.cadCon_btn_cadastrar);
         txt_nome = findViewById(R.id.cadCon_edit_nome);
         txt_email = findViewById(R.id.cadCon_edit_email);
         txt_telefone = findViewById(R.id.cadCon_edit_telefone);

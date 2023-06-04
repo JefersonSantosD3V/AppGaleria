@@ -2,16 +2,22 @@
 <resources>
     <style name="Cad_ContainerComponents">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">250dp</item>
+        <item name="android:layout_height">200dp</item>
         <item name="android:background">@drawable/container_components</item>
-        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_marginTop">50dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
     </style>
 
     <style name="Rec_ContainerComponents">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">200dp</item>
         <item name="android:background">@drawable/container_components</item>
-        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_marginTop">50dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
     </style>
 
     <style name="ContainerComponents_Menu">
@@ -22,9 +28,19 @@
     </style>
 
     <style name="Edit_Text">
-        <item name="android:layout_width">350dp</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">45dp</item>
         <item name="android:background">@drawable/edit_text</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:paddingVertical">10dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
+
+    <style name="spinner">
+        <item name="android:layout_width">350dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:background">@drawable/spinner</item>
         <item name="android:paddingHorizontal">20dp</item>
         <item name="android:paddingVertical">10dp</item>
         <item name="android:layout_marginLeft">20dp</item>

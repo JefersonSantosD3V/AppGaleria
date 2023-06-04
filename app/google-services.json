@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "135752590796",
+    "project_id": "galeria-costura-difente",
+    "storage_bucket": "galeria-costura-difente.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135752590796:android:9386e3d7ad4713a5b36969",
+        "android_client_info": {
+          "package_name": "br.com.appgaleria.costura.diferente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135752590796-d3hfuofatp3pok3kpuhkmjibhin8t30u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.appgaleria.costura.diferente",
+            "certificate_hash": "232f9a9ee15995f235acc5c342d04df385e6b4e6"
+          }
+        },
+        {
+          "client_id": "135752590796-fcmtbjsgt59mqcpl9o4er24rofkk906d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxSLf8bL-z5xaX85qjLMAo-qPh026_8bI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135752590796-fcmtbjsgt59mqcpl9o4er24rofkk906d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

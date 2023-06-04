@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.cadastros.CadastroMoldeActivity"
+    android:background="@drawable/gradient_background">
+
+
+    <TextView
+        android:id="@+id/cadMol_titulo_cadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/txt_cadastrar_molde"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/cadMol_container_componentes"
+        style="@style/Cad_ContainerComponents"
+        android:layout_height="400dp"
+        app:layout_constraintTop_toBottomOf="@+id/cadMol_titulo_cadastrar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Spinner
+        android:id="@+id/cadMol_spinner_tipo"
+        style="@style/spinner"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dropdown"
+        android:dropDownVerticalOffset="45dp"
+        app:layout_constraintTop_toTopOf="@id/cadMol_container_componentes"
+        app:layout_constraintStart_toStartOf="@id/cadMol_container_componentes"
+        app:layout_constraintEnd_toEndOf="@id/cadMol_container_componentes"
+        tools:ignore="HardcodedText" />
+
+    <Spinner
+        android:id="@+id/cadMol_spinner_categoria"
+        style="@style/spinner"
+        android:hint="Categoria"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dropdown"
+        android:dropDownVerticalOffset="45dp"
+        app:layout_constraintTop_toBottomOf="@id/cadMol_spinner_tipo"
+        app:layout_constraintStart_toStartOf="@id/cadMol_container_componentes"
+        app:layout_constraintEnd_toEndOf="@id/cadMol_container_componentes"
+        tools:ignore="HardcodedText" />
+
+    <Spinner
+        android:id="@+id/cadMol_spinner_genero"
+        style="@style/spinner"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dropdown"
+        android:dropDownVerticalOffset="45dp"
+        app:layout_constraintTop_toBottomOf="@id/cadMol_spinner_categoria"
+        app:layout_constraintStart_toStartOf="@id/cadMol_container_componentes"
+        app:layout_constraintEnd_toEndOf="@id/cadMol_container_componentes" />
+
+    <Spinner
+        android:id="@+id/cadMol_spinner_tamanho"
+        style="@style/spinner"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dropdown"
+        android:dropDownVerticalOffset="45dp"
+        app:layout_constraintTop_toBottomOf="@id/cadMol_spinner_genero"
+        app:layout_constraintStart_toStartOf="@id/cadMol_container_componentes"
+        app:layout_constraintEnd_toEndOf="@id/cadMol_container_componentes"
+        tools:ignore="HardcodedText" />
+
+    <!--EditText
+        android:id="@+id/cadMol_medida"
+        style="@style/Edit_Text"
+        android:hint="Medias: Mín-Máx"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/cadMol_spinner_tamanho"
+        app:layout_constraintStart_toStartOf="@id/cadMol_container_componentes"
+        app:layout_constraintEnd_toEndOf="@id/cadMol_container_componentes"
+        tools:ignore="HardcodedText" /-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cadMol_btn_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_camera"
+        app:backgroundTint="@color/purple_700"
+        app:fabSize="mini"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cadMol_spinner_tamanho"
+        app:layout_constraintBottom_toTopOf="@id/cadMol_btn_cadastrar"
+        tools:ignore="ContentDescription" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cadMol_btn_cadastrar"
+        style="@style/Buttons_Default"
+        android:onClick="cadastrar"
+        android:text="@string/txt_cadastrar"
+        app:layout_constraintBottom_toBottomOf="@+id/cadMol_container_componentes"
+        app:layout_constraintEnd_toEndOf="@id/cadMol_container_componentes"
+        app:layout_constraintStart_toStartOf="@id/cadMol_container_componentes"
+        app:layout_constraintTop_toBottomOf="@id/cadMol_btn_camera" />
+
+    <ImageView
+        android:id="@+id/cadMol_btn_fechar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close"
+        tools:ignore="ContentDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
