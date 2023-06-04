@@ -13,16 +13,18 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import br.com.appgaleria.costura.diferente.R;
+import br.com.appgaleria.costura.diferente.activity.AviamentoActivity;
 import br.com.appgaleria.costura.diferente.activity.ContatoActivity;
+import br.com.appgaleria.costura.diferente.model.Aviamento;
+import br.com.appgaleria.costura.diferente.model.Contato;
 import br.com.appgaleria.costura.diferente.model.Usuario;
 
 public class CadastroContatoActivity extends AppCompatActivity {
 
     private ImageView img_btn_fechar;
     //private Button btn_cadastrar;
-    private EditText txt_nome, txt_email, txt_telefone,txt_instagram,txt_facebook;
-    private FirebaseAuth autentificacao;
-    private Usuario usuario;
+    private EditText txt_nome, txt_email, txt_telefone/*,txt_instagram,txt_facebook*/;
+    private Contato contato;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,32 +42,31 @@ public class CadastroContatoActivity extends AppCompatActivity {
         });
     }
 
-    public void cadastrar(View v) {
+    public void cadastrarContato(View v) {
         String nome = txt_nome.getText().toString();
         String email = txt_email.getText().toString();
         String telefone = txt_telefone.getText().toString();
+        //String instagram = txt_instagram.getText().toString();
+        //String facebook = txt_facebook.getText().toString();
 
-        if (nome.equals("") && (email.equals("") || telefone.equals(""))) {
-            Toast.makeText(CadastroContatoActivity.this, "Preencha nome e e-mail ou telefone.", Toast.LENGTH_SHORT).show();
-        } else if (verificaEmail(email)) {
-            Toast.makeText(CadastroContatoActivity.this, "E-mail já cadastrado.", Toast.LENGTH_SHORT).show();
-            //criar condição se deseja continuar
-        } else if (verificaTelefone(telefone)) {
-            Toast.makeText(CadastroContatoActivity.this, "Telefone já cadastrado.", Toast.LENGTH_SHORT).show();
-            //criar condição se deseja continuar
-        } else {
-            Intent intent = new Intent(CadastroContatoActivity.this, CadastroUsuarioActivity.class);
+        if (!nome.isEmpty() && !telefone.isEmpty()) {
+            contato = new Contato();
+            contato.setNome(nome);
+            contato.setTelefone(telefone);
+            contato.setEmail(email);
+            //contato.setInstagram(instagram);
+            //contato.setFacebook(facebook);
+
+            contato.salvarContato();
+
+            Intent intent = new Intent(CadastroContatoActivity.this, ContatoActivity.class);
             startActivity(intent);
             finish();
-            Toast.makeText(CadastroContatoActivity.this, "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private boolean verificaEmail(String email) {
-        return false;
-    }
-    private boolean verificaTelefone(String telefone) {
-        return false;
+        else {
+            Toast.makeText(getApplicationContext(), "Preencha os campos obrigatórios (*).", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void iniciarComponetes() {
@@ -74,7 +75,7 @@ public class CadastroContatoActivity extends AppCompatActivity {
         txt_nome = findViewById(R.id.cadCon_edit_nome);
         txt_email = findViewById(R.id.cadCon_edit_email);
         txt_telefone = findViewById(R.id.cadCon_edit_telefone);
-        txt_facebook = findViewById(R.id.cadCon_edit_facebook);
-        txt_instagram = findViewById(R.id.cadCon_edit_instagram);
+        //txt_facebook = findViewById(R.id.cadCon_edit_facebook);
+        //txt_instagram = findViewById(R.id.cadCon_edit_instagram);
     }
 }

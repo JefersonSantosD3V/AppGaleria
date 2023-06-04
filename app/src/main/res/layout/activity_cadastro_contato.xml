@@ -25,7 +25,7 @@
     <View
         android:id="@+id/cadCon_container_componentes"
         style="@style/Cad_ContainerComponents"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         app:layout_constraintTop_toBottomOf="@+id/cadCon_titulo_cadastrar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -33,7 +33,7 @@
     <EditText
         android:id="@+id/cadCon_edit_nome"
         style="@style/Edit_Text"
-        android:hint="Nome"
+        android:hint="Nome *"
         android:inputType="text"
         android:layout_marginTop="10dp"
         android:singleLine="false"
@@ -55,7 +55,7 @@
     <EditText
         android:id="@+id/cadCon_edit_telefone"
         style="@style/Edit_Text"
-        android:hint="Telefone"
+        android:hint="Telefone *"
         android:inputType="phone"
         android:layout_marginTop="10dp"
         android:singleLine="false"
@@ -63,7 +63,7 @@
         app:layout_constraintStart_toStartOf="@id/cadCon_container_componentes"
         app:layout_constraintEnd_toEndOf="@id/cadCon_container_componentes"/>
 
-    <EditText
+    <!--EditText
         android:id="@+id/cadCon_edit_instagram"
         style="@style/Edit_Text"
         android:layout_marginTop="10dp"
@@ -81,17 +81,17 @@
         android:hint="Facebook"
         app:layout_constraintEnd_toEndOf="@id/cadCon_container_componentes"
         app:layout_constraintStart_toStartOf="@id/cadCon_container_componentes"
-        app:layout_constraintTop_toBottomOf="@id/cadCon_edit_instagram" />
+        app:layout_constraintTop_toBottomOf="@id/cadCon_edit_instagram" /-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cadCon_btn_cadastrar"
         style="@style/Buttons_Default"
-        android:onClick="cadastrar"
+        android:onClick="cadastrarContato"
         android:text="@string/txt_cadastrar"
         app:layout_constraintBottom_toBottomOf="@+id/cadCon_container_componentes"
         app:layout_constraintEnd_toEndOf="@id/cadCon_container_componentes"
         app:layout_constraintStart_toStartOf="@id/cadCon_container_componentes"
-        app:layout_constraintTop_toBottomOf="@id/cadCon_edit_facebook" />
+        app:layout_constraintTop_toBottomOf="@id/cadCon_edit_telefone" />
 
     <ImageView
         android:id="@+id/cadCon_btn_fechar"

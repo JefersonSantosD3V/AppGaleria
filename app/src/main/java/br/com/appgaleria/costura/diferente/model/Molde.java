@@ -18,9 +18,12 @@ public class Molde {
 
     public void salvarMolde(){
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference moldeRef = firebaseRef.child("moldes");
+        firebaseRef.child("moldes")
+                .push()
+                .setValue(this);
 
-        moldeRef.setValue(this);
+        //DatabaseReference moldeRef = firebaseRef.child("moldes");
+        //moldeRef.setValue(this);
     }
 
     public Molde() {

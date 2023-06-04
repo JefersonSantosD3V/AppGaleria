@@ -6,21 +6,31 @@ import java.io.Serializable;
 
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 
-public class Contato implements Serializable {
+public class Contato {
 
     private String nome ;
     private String email;
     private String telefone;
-    private String instagram;
-    private String facebook;
+    //private String instagram;
+   // private String facebook;
 
     public void salvarContato(){
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference contatoRef = firebaseRef.child("contatos");
-        contatoRef.setValue(this);
+        firebaseRef.child("contatos")
+                .push()
+                .setValue(this);
+
+        //DatabaseReference contatoRef = firebaseRef.child("contatos");
+        //contatoRef.setValue(this);
     }
 
     public Contato() {
+    }
+
+    public Contato(String nome, String email, String telefone) {
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
     }
 
     public String getNome() { return nome; }
@@ -44,7 +54,7 @@ public class Contato implements Serializable {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
+/*
     public String getInstagram() {
         return instagram;
     }
@@ -60,4 +70,6 @@ public class Contato implements Serializable {
     public void setFacebook(String facebook) {
         this.facebook = facebook;
     }
+
+ */
 }

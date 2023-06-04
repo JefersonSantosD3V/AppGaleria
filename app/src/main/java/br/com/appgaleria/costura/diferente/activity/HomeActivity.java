@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import br.com.appgaleria.costura.diferente.R;
+import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroAviamentoActivity;
 import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroMoldeActivity;
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 import br.com.appgaleria.costura.diferente.helper.Permissao;
@@ -38,6 +39,8 @@ public class HomeActivity extends AppCompatActivity {
     private String[] permissoes = new String[]{
             Manifest.permission.READ_MEDIA_IMAGES,
             Manifest.permission.CAMERA
+           // Manifest.permission.INTERNET,
+           // Manifest.permission.ACCESS_NETWORK_STATE
     };
 
     private Info info;
@@ -129,6 +132,7 @@ public class HomeActivity extends AppCompatActivity {
         info = new Info();
         info.setInformacao(txt);
         info.salvarInfoBD();
+        Toast.makeText(getApplicationContext(), "Informaçõe salvas!", Toast.LENGTH_SHORT).show();
     }
 
     public void recuperarInfo(){

@@ -78,7 +78,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cadAvi_btn_cadastrar"
         style="@style/Buttons_Default"
-        android:onClick="cadastrar"
+        android:onClick="cadastrarAviamento"
         android:text="@string/txt_cadastrar"
         android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/cadAvi_container_componentes"

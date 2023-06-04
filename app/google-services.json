@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "135752590796",
+    "firebase_url": "https://galeria-costura-difente-default-rtdb.firebaseio.com",
     "project_id": "galeria-costura-difente",
     "storage_bucket": "galeria-costura-difente.appspot.com"
   },
@@ -22,7 +23,7 @@
           }
         },
         {
-          "client_id": "135752590796-fcmtbjsgt59mqcpl9o4er24rofkk906d.apps.googleusercontent.com",
+          "client_id": "135752590796-6id4q303oig7fngqcu7rbl1f94o2a09v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "135752590796-fcmtbjsgt59mqcpl9o4er24rofkk906d.apps.googleusercontent.com",
+              "client_id": "135752590796-6id4q303oig7fngqcu7rbl1f94o2a09v.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,16 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:alpha="1"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="10dp"
+   >
+
+<RelativeLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_face"
+        android:layout_centerVertical="true"
+        android:id="@+id/img_list_contato_adapter"
+        />
 
     <TextView
-        android:id="@+id/textListaContato"
+        android:id="@+id/textAdapterNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="Lista Contatos"
-        android:textColor="@color/black"
-        tools:ignore="HardcodedText" />
-</LinearLayout>
+        android:text="Nome"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_toRightOf="@id/img_list_contato_adapter"
+        android:layout_marginLeft="10dp"/>
+    <TextView
+        android:id="@+id/textAdapterEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="E-mail"
+
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_toRightOf="@id/img_list_contato_adapter"
+        android:layout_below="@id/textAdapterNome"
+        android:layout_marginLeft="10dp"/>
+    <TextView
+        android:id="@+id/textAdapterTelefone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Telefone"
+
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_toRightOf="@id/img_list_contato_adapter"
+        android:layout_below="@id/textAdapterEmail"
+        android:layout_marginLeft="10dp"/>
+
+</RelativeLayout>
+</androidx.cardview.widget.CardView>

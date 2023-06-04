@@ -13,8 +13,12 @@ public class Aviamento implements Serializable {
 
     public void salvarAviamento(){
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference aviamentoRef = firebaseRef.child("aviamentos");
-        aviamentoRef.setValue(this);
+        firebaseRef.child("aviamentos")
+                .push()
+                .setValue(this);
+
+        //DatabaseReference aviamentoRef = firebaseRef.child("aviamentos");
+        //aviamentoRef.setValue(this);
     }
 
     public Aviamento() {
