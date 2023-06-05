@@ -27,6 +27,7 @@
     <string name="txt_cadastrar_aviamento">Cadastrar\nAviamento</string>
     <string name="txt_cadastrar_molde">Cadastrar\nMolde</string>
     <string name="btn_filtrar">Filtrar</string>
+    <string name="pesquisar">Pesquisar</string>
 
     <string-array name="categoria_top">
         <item>Blusa</item>

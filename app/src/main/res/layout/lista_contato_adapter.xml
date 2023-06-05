@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:alpha="1"
+    android:alpha="0.9"
     app:cardCornerRadius="6dp"
     app:cardElevation="10dp"
    >
@@ -24,16 +24,17 @@
         />
 
     <TextView
-        android:id="@+id/textAdapterNome"
+        android:id="@+id/textAdapterContato_Nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nome"
+        android:textStyle="bold"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:layout_toRightOf="@id/img_list_contato_adapter"
         android:layout_marginLeft="10dp"/>
     <TextView
-        android:id="@+id/textAdapterEmail"
+        android:id="@+id/textAdapterContato_Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="E-mail"
@@ -41,10 +42,10 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:layout_toRightOf="@id/img_list_contato_adapter"
-        android:layout_below="@id/textAdapterNome"
+        android:layout_below="@id/textAdapterContato_Nome"
         android:layout_marginLeft="10dp"/>
     <TextView
-        android:id="@+id/textAdapterTelefone"
+        android:id="@+id/textAdapterContato_Telefone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Telefone"
@@ -52,7 +53,7 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:layout_toRightOf="@id/img_list_contato_adapter"
-        android:layout_below="@id/textAdapterEmail"
+        android:layout_below="@id/textAdapterContato_Email"
         android:layout_marginLeft="10dp"/>
 
 </RelativeLayout>

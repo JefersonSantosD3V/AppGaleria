@@ -21,19 +21,30 @@ import br.com.appgaleria.costura.diferente.model.Aviamento;
 import br.com.appgaleria.costura.diferente.model.Contato;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-//public class ContatoAdapter extends RecyclerView.Adapter<ContatoAdapter.MyViewHolder> {
-public class ContatoAdapter extends FirebaseRecyclerAdapter<Contato,ContatoAdapter.myViewHolder>{
-  // private ArrayList<Contato> listaContatos;
-   // private Context contexto;
+public class ContatoAdapter extends RecyclerView.Adapter<ContatoAdapter.MyViewHolder> {
+    List<Contato> listaContatos;
+    Context contexto;
 
-    public ContatoAdapter(@NonNull FirebaseRecyclerOptions<Contato> options)
+    public void setFiltroList(List<Contato> filtro){
+        this.listaContatos = filtro;
+        notifyDataSetChanged();
+    }
+
+    public ContatoAdapter(List<Contato> lista,Context contexto)
     {
-        super(options);
+        this.listaContatos = lista;
+        this.contexto = contexto;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull myViewHolder holder, int position,@NonNull Contato contato) {
-        //Contato contato = listaContatos.get(position);
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemLista = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_contato_adapter, parent, false);
+        return new MyViewHolder(itemLista);
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        Contato contato = listaContatos.get(position);
 
         holder.nome.setText(contato.getNome());
         holder.email.setText(contato.getEmail());
@@ -42,29 +53,24 @@ public class ContatoAdapter extends FirebaseRecyclerAdapter<Contato,ContatoAdapt
         //holder.instagram.setText(contato.getInstagram());
     }
 
-    @NonNull
     @Override
-    public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemLista = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_contato_adapter, parent, false);
-        return new myViewHolder(itemLista);
+    public int getItemCount() {
+        return listaContatos.size();
     }
 
-
-
-
-    public class myViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView nome,telefone,email;
         CircleImageView img;
 
-        public myViewHolder(@NonNull View itemView) {
+        public MyViewHolder(View itemView) {
             super(itemView);
 
-            nome = (TextView)itemView.findViewById(R.id.textAdapterNome);
-            email = (TextView)itemView.findViewById(R.id.textAdapterEmail);
-            telefone = (TextView)itemView.findViewById(R.id.textAdapterTelefone);
-            img = (CircleImageView)itemView.findViewById(R.id.img_list_contato_adapter);
-          //  facebook = itemView.findViewById(R.id.textAdapterFacebook);
-          //  instagram = itemView.findViewById(R.id.textAdapterInstagram);
+            nome = itemView.findViewById(R.id.textAdapterContato_Nome);
+            email = itemView.findViewById(R.id.textAdapterContato_Email);
+            telefone = itemView.findViewById(R.id.textAdapterContato_Telefone);
+            img = itemView.findViewById(R.id.img_list_contato_adapter);
+            //  facebook = itemView.findViewById(R.id.textAdapterFacebook);
+            //  instagram = itemView.findViewById(R.id.textAdapterInstagram);
         }
     }
 

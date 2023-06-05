@@ -3,7 +3,9 @@ package br.com.appgaleria.costura.diferente.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +23,10 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +36,23 @@ import br.com.appgaleria.costura.diferente.RecyclerItemClickListener;
 import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroAviamentoActivity;
 import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroMoldeActivity;
 import br.com.appgaleria.costura.diferente.adapter.AviamentoAdapter;
+import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 import br.com.appgaleria.costura.diferente.helper.Permissao;
 import br.com.appgaleria.costura.diferente.model.Aviamento;
+import br.com.appgaleria.costura.diferente.model.Contato;
 
 public class AviamentoActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton floatingActionButton;
+    private DatabaseReference firebaseRef  = ConfigFirebase.getFirebase();
+    private ValueEventListener valueEventListenerAviamentos;
     private RecyclerView recyclerView;
     private AviamentoAdapter aviamentoAdapter;
     private List<Aviamento> listaAviamentos = new ArrayList<>();
+    private Aviamento aviamento;
+    private DatabaseReference aviamentosRef;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +63,29 @@ public class AviamentoActivity extends AppCompatActivity {
 
         iniciarComponentes();
         iniciaNavigation();
+        swipeAviamento();
+
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filtrarListaAviamentos(newText);
+                return true;
+            }
+        });
+
+        aviamentoAdapter = new AviamentoAdapter(listaAviamentos,this);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager( layoutManager );
+        recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
+        recyclerView.setAdapter( aviamentoAdapter );
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +94,21 @@ public class AviamentoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void filtrarListaAviamentos(String text) {
+        List<Aviamento> filtro = new ArrayList<>();
+        for(Aviamento aviamento : listaAviamentos){
+            if(aviamento.getNome().toLowerCase().contains(text.toLowerCase())){
+                filtro.add(aviamento);
+            }
+        }
+        if(filtro.isEmpty()){
+            Toast.makeText(getApplicationContext(), "Não encontrado!", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            aviamentoAdapter.setFiltroList(filtro);
+        }
     }
 
     private void iniciaNavigation() {
@@ -97,60 +148,103 @@ public class AviamentoActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         floatingActionButton = findViewById(R.id.aviamento_btn_add);
         recyclerView = findViewById(R.id.aviamento_recyclerView);
+        searchView = findViewById(R.id.searchView_aviamentos);
     }
 
-    public void listaAviamentos(){
-        //Listar tarefas (static, sem BD)
-        Aviamento avi1 = new Aviamento();
+    public void recuperarAviamentos(){
+        aviamentosRef = firebaseRef.child("aviamentos");
 
-        avi1.setNome("avi1");
-        listaAviamentos.add(avi1);
-        Aviamento avi2 = new Aviamento();
+        valueEventListenerAviamentos = aviamentosRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        avi2.setNome("avi2");
-        listaAviamentos.add(avi2);
-        Aviamento avi3 = new Aviamento();
+                listaAviamentos.clear();
+                for (DataSnapshot dados: dataSnapshot.getChildren() ){
 
-        avi3.setNome("avi3");
-        listaAviamentos.add(avi3);
+                    Aviamento aviamento = dados.getValue( Aviamento.class );
+                    aviamento.setKey( dados.getKey() );
+                    listaAviamentos.add( aviamento );
 
-        /*Exibe a lista de tarefas*/
-        //adapter
-        aviamentoAdapter = new AviamentoAdapter(listaAviamentos);
-        //recryclerview
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
-        recyclerView.setAdapter(aviamentoAdapter);
+                }
+                aviamentoAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        //evento de click
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(
-                        getApplicationContext(),
-                        recyclerView,
-                        new RecyclerItemClickListener.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                Aviamento aviamento = listaAviamentos.get(position);
-                                Toast.makeText(getApplicationContext(), "Item pressionado"+aviamento.getNome(), Toast.LENGTH_SHORT).show();
-                            }
-                            @Override
-                            public void onLongItemClick(View view, int position) {
-                                Toast.makeText(getApplicationContext(), "click longo", Toast.LENGTH_SHORT).show();
-                            }
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            }
-                        }
-                )
-        );
+            }
+        });
     }
+
+    public void swipeAviamento(){
+
+        ItemTouchHelper.Callback itemTouch = new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+
+                int dragFlags = ItemTouchHelper.ACTION_STATE_IDLE;
+                int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+                return makeMovementFlags(dragFlags, swipeFlags);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                excluirAviamento( viewHolder );
+            }
+        };
+
+        new ItemTouchHelper( itemTouch ).attachToRecyclerView( recyclerView );
+
+    }
+
+    public void excluirAviamento(final RecyclerView.ViewHolder viewHolder){
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        //Configura AlertDialog
+        alertDialog.setTitle("Excluir");
+        alertDialog.setMessage("Excluir aviamento?");
+        alertDialog.setCancelable(false);
+
+        alertDialog.setPositiveButton("Confirmar", (dialog, which) -> {
+            int position = viewHolder.getAbsoluteAdapterPosition();
+            aviamento = listaAviamentos.get( position );
+
+            aviamentosRef = firebaseRef.child("aviamentos");
+
+            aviamentosRef.child( aviamento.getKey() ).removeValue();
+            aviamentoAdapter.notifyItemRemoved( position );
+        });
+
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(AviamentoActivity.this,
+                        "Cancelado",
+                        Toast.LENGTH_SHORT).show();
+                aviamentoAdapter.notifyDataSetChanged();
+            }
+        });
+
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
+
 
     @Override
     protected void onStart() {
-        listaAviamentos();
         super.onStart();
+        recuperarAviamentos();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        aviamentosRef.removeEventListener(valueEventListenerAviamentos);
+    }
+
 }

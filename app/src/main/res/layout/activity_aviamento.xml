@@ -8,25 +8,38 @@
     android:orientation="vertical"
     tools:context=".activity.AviamentoActivity">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView_aviamentos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/search_view_contatos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="Pesquisar"
+        app:iconifiedByDefault="false" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/aviamento_btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="15dp"
         android:gravity="bottom|right"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/purple_700"
         app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription,RtlHardcoded" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/aviamento_recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@+id/aviamento_btn_add"

@@ -8,6 +8,20 @@
     android:orientation="vertical"
     tools:context=".activity.ContatoActivity">
 
+    <!--include layout="@layout/toolbar"/-->
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView_contatos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/search_view_contatos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="Pesquisar"
+        app:iconifiedByDefault="false" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/contato_btn_add"
         android:layout_width="wrap_content"
@@ -27,7 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@+id/contato_btn_add"
@@ -40,7 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_navegacao">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/menu_navegacao"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

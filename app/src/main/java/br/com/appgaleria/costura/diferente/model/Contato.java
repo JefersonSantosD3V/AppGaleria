@@ -11,6 +11,7 @@ public class Contato {
     private String nome ;
     private String email;
     private String telefone;
+    private String key;
     //private String instagram;
    // private String facebook;
 
@@ -53,6 +54,14 @@ public class Contato {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 /*
     public String getInstagram() {

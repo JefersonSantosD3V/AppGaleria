@@ -6,10 +6,11 @@ import java.io.Serializable;
 
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 
-public class Aviamento implements Serializable {
+public class Aviamento {
     private String nome, descricao;
     private Double quantidade;
     private Byte[] foto;
+    private String key;
 
     public void salvarAviamento(){
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
@@ -23,6 +24,12 @@ public class Aviamento implements Serializable {
 
     public Aviamento() {
 
+    }
+    public Aviamento(String nome, String descricao, Double quantidade, Byte[] foto) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.quantidade = quantidade;
+        this.foto = foto;
     }
 
     public String getNome() {
@@ -47,5 +54,12 @@ public class Aviamento implements Serializable {
 
     public void setQuantidade(Double quantidade) {
         this.quantidade = quantidade;
+    }
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }
