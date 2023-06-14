@@ -47,7 +47,7 @@
         android:hint="E-mail"
         android:inputType="textEmailAddress"
         android:drawableEnd="@drawable/ic_email"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:singleLine="false"
         app:layout_constraintTop_toTopOf="@id/cad_container_componentes"
         app:layout_constraintStart_toStartOf="@id/cad_container_componentes"

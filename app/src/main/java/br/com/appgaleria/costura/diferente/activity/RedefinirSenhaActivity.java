@@ -26,7 +26,7 @@ public class RedefinirSenhaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redefinir_senha);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         iniciarComponetes();
 

@@ -1,5 +1,7 @@
 package br.com.appgaleria.costura.diferente.model;
 
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.Serializable;
@@ -11,7 +13,7 @@ public class Contato {
     private String nome ;
     private String email;
     private String telefone;
-    private String key;
+    private String chave;
     //private String instagram;
    // private String facebook;
 
@@ -20,18 +22,16 @@ public class Contato {
         firebaseRef.child("contatos")
                 .push()
                 .setValue(this);
-
-        //DatabaseReference contatoRef = firebaseRef.child("contatos");
-        //contatoRef.setValue(this);
     }
 
     public Contato() {
     }
 
-    public Contato(String nome, String email, String telefone) {
+    public Contato(String nome, String email, String telefone,String chave) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
+        this.chave = chave;
     }
 
     public String getNome() { return nome; }
@@ -56,12 +56,12 @@ public class Contato {
         this.telefone = telefone;
     }
 
-    public String getKey() {
-        return key;
+    public String getChave() {
+        return chave;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setChave(String chave) {
+        this.chave = chave;
     }
 /*
     public String getInstagram() {

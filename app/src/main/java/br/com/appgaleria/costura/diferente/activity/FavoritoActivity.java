@@ -20,7 +20,7 @@ public class FavoritoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorito);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         iniciaNavigation();
     }

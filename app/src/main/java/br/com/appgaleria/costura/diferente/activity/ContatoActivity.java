@@ -30,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Timer;
 
@@ -57,7 +59,7 @@ public class ContatoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contato);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         iniciarComponentes();
         iniciaNavigation();
@@ -104,7 +106,7 @@ public class ContatoActivity extends AppCompatActivity {
             }
         }
         if(filtro.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Não encontrado!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Não encontrado!", Toast.LENGTH_SHORT).show();
         }
         else{
             contatoAdapter.setFiltroList(filtro);
@@ -165,10 +167,19 @@ public class ContatoActivity extends AppCompatActivity {
                 for (DataSnapshot dados: dataSnapshot.getChildren() ){
 
                     Contato contato = dados.getValue( Contato.class );
-                    contato.setKey( dados.getKey() );
+                    contato.setChave( dados.getKey() );
                     listaContatos.add( contato );
+                    //Toast.makeText(getApplicationContext(), contato.getChave(), Toast.LENGTH_SHORT).show();
 
                 }
+
+                Collections.sort(listaContatos, new Comparator<Contato>() {
+                    @Override
+                    public int compare(Contato contact1, Contato contact2) {
+                        return contact1.getNome().compareToIgnoreCase(contact2.getNome());
+                    }
+                });
+
                 contatoAdapter.notifyDataSetChanged();
             }
             @Override
@@ -219,7 +230,7 @@ public class ContatoActivity extends AppCompatActivity {
 
             contatosRef = firebaseRef.child("contatos");
 
-            contatosRef.child( contato.getKey() ).removeValue();
+            contatosRef.child( contato.getChave() ).removeValue();
             contatoAdapter.notifyItemRemoved( position );
         });
 

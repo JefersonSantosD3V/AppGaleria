@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     //private Button btn_entrar;
     private EditText txt_email, txt_senha;
     private ProgressBar progress_bar;
-    //private CheckBox checkbox;
     private Usuario usuario;
     private FirebaseAuth autentificacao;
     protected static final String SHARED_PREFS = "sharedPrefs";
@@ -43,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //esconde actcionbar
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         iniciarComponentes();
 
@@ -124,6 +123,5 @@ public class LoginActivity extends AppCompatActivity {
         txt_email = findViewById(R.id.log_edit_email);
         txt_senha = findViewById(R.id.log_edit_senha);
         progress_bar = findViewById(R.id.log_progress_bar);
-        //checkbox = findViewById(R.id.log_check_box);
     }
 }

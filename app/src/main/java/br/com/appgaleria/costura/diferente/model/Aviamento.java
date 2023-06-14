@@ -1,37 +1,51 @@
 package br.com.appgaleria.costura.diferente.model;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 
-public class Aviamento {
+public class Aviamento implements Serializable{
+
+    private String id;
     private String nome, descricao;
     private Double quantidade;
-    private Byte[] foto;
-    private String key;
+    private ImagemUpload urlImagem;;
 
-    public void salvarAviamento(){
-        DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        firebaseRef.child("aviamentos")
-                .push()
-                .setValue(this);
-
-        //DatabaseReference aviamentoRef = firebaseRef.child("aviamentos");
-        //aviamentoRef.setValue(this);
-    }
 
     public Aviamento() {
-
+        DatabaseReference reference = ConfigFirebase.getFirebase();
+        this.setId(reference.push().getKey());
     }
-    public Aviamento(String nome, String descricao, Double quantidade, Byte[] foto) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.quantidade = quantidade;
-        this.foto = foto;
+    public void salvarAviamento() {
+        DatabaseReference reference = ConfigFirebase.getFirebase()
+                .child("aviamentos")
+                .child(this.getId());
+        reference.setValue(this);
     }
 
+    public void deletaAviamento(){
+        DatabaseReference reference = ConfigFirebase.getFirebase()
+                .child("aviamentos")
+                .child(this.getId());
+        reference.removeValue();
+
+        StorageReference storageReference = ConfigFirebase.getStorage()
+                .child("imagens")
+                .child("aviamentos")
+                .child(this.getId())
+                .child("imagem.jpeg");
+        storageReference.delete();
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getNome() {
         return nome;
     }
@@ -55,11 +69,13 @@ public class Aviamento {
     public void setQuantidade(Double quantidade) {
         this.quantidade = quantidade;
     }
-    public String getKey() {
-        return key;
+
+    public ImagemUpload getUrlImagem() {
+        return urlImagem;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setUrlImagem(ImagemUpload urlImagem) {
+        this.urlImagem = urlImagem;
     }
+
 }

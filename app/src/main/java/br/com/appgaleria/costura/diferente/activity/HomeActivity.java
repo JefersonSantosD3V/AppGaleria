@@ -36,17 +36,10 @@ import br.com.appgaleria.costura.diferente.model.Info;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private String[] permissoes = new String[]{
-            Manifest.permission.READ_MEDIA_IMAGES,
-            Manifest.permission.CAMERA
-           // Manifest.permission.INTERNET,
-           // Manifest.permission.ACCESS_NETWORK_STATE
-    };
-
     private Info info;
     BottomNavigationView bottomNavigationView;
     private TextView txt_info;
-    private Button logout,facebook, instagram; /*btn_salvarInfo,*/
+    private Button logout,facebook, instagram,share;
     private DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
     protected static final String SHARED_PREFS = "sharedPrefs";
 
@@ -55,9 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Permissao.validarPermissoes(permissoes, this, 1);
-
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         iniciaNavigation();
         iniciarComponentes();
@@ -68,63 +59,6 @@ public class HomeActivity extends AppCompatActivity {
             deslogar();
         });
 
-        facebook.setOnClickListener(v -> {
-            sharingToSocialMedia("com.facebook.katana", "testando");
-        });
-        instagram.setOnClickListener(v -> {
-            sharingToSocialMedia("com.instagram.android", "testando");
-        });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        for (int permissaoResultado : grantResults) {
-            if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
-                alertaValidacaoPermissao();
-            }
-        }
-    }
-
-    private void alertaValidacaoPermissao() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Permissões Negadas");
-        builder.setMessage("Permissão obrigatoria para acesso!");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Confrimar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                deslogar();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    private void sharingToSocialMedia(String application, String linkopen) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, linkopen);
-        boolean installed = checkAppInstall(application);
-        if (installed) {
-            intent.setPackage(application);
-            startActivity(intent);
-        } else {
-            Toast.makeText(getApplicationContext(), "Installed application first", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean checkAppInstall(String uri) {
-        PackageManager pm = getPackageManager();
-        try {
-            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-
-        }
-        return false;
     }
 
     public void salvarInfo(View v) {
@@ -132,16 +66,16 @@ public class HomeActivity extends AppCompatActivity {
         info = new Info();
         info.setInformacao(txt);
         info.salvarInfoBD();
-        Toast.makeText(getApplicationContext(), "Informaçõe salvas!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Informações salvas!", Toast.LENGTH_SHORT).show();
     }
 
     public void recuperarInfo(){
         DatabaseReference infoRef = firebaseRef.child("home_info");
         infoRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(DataSnapshot snapshot) {
                 Info info = snapshot.getValue(Info.class);
-                txt_info.setText(info.getInformacao());
+                    txt_info.setText(info.getInformacao());
             }
 
             @Override
@@ -169,8 +103,6 @@ public class HomeActivity extends AppCompatActivity {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
-                //  if (item.getItemId() != R.id.menu_home) {
-                //    finish();
 
                 switch(item.getItemId()){
                     case R.id.menu_home:
@@ -203,7 +135,7 @@ public class HomeActivity extends AppCompatActivity {
         logout=findViewById(R.id.home_logout);
         facebook=findViewById(R.id.home_facebook);
         instagram=findViewById(R.id.home_instagram);
+        instagram=findViewById(R.id.home_share);
         txt_info=findViewById(R.id.home_info);
-        //btn_salvarInfo = findViewById(R.id.home_btn_salve_info);
-        }
+    }
 }

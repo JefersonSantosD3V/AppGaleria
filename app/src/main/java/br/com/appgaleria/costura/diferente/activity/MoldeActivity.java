@@ -37,7 +37,7 @@ public class MoldeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_molde);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         iniciaNavigation();
         iniciarComponentes();

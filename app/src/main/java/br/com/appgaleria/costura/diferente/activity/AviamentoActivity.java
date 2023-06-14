@@ -29,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import br.com.appgaleria.costura.diferente.R;
@@ -59,7 +61,7 @@ public class AviamentoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aviamento);
 
-        getSupportActionBar().hide();
+       // getSupportActionBar().hide();
 
         iniciarComponentes();
         iniciaNavigation();
@@ -104,7 +106,7 @@ public class AviamentoActivity extends AppCompatActivity {
             }
         }
         if(filtro.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Não encontrado!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Não encontrado!", Toast.LENGTH_SHORT).show();
         }
         else{
             aviamentoAdapter.setFiltroList(filtro);
@@ -162,10 +164,17 @@ public class AviamentoActivity extends AppCompatActivity {
                 for (DataSnapshot dados: dataSnapshot.getChildren() ){
 
                     Aviamento aviamento = dados.getValue( Aviamento.class );
-                    aviamento.setKey( dados.getKey() );
+                    //aviamento.setKey( dados.getKey() );
                     listaAviamentos.add( aviamento );
-
                 }
+
+                Collections.sort(listaAviamentos, new Comparator<Aviamento>() {
+                    @Override
+                    public int compare(Aviamento aviamento1, Aviamento aviamento2) {
+                        return aviamento1.getNome().compareToIgnoreCase(aviamento2.getNome());
+                    }
+                });
+
                 aviamentoAdapter.notifyDataSetChanged();
             }
             @Override
@@ -214,9 +223,8 @@ public class AviamentoActivity extends AppCompatActivity {
             int position = viewHolder.getAbsoluteAdapterPosition();
             aviamento = listaAviamentos.get( position );
 
-            aviamentosRef = firebaseRef.child("aviamentos");
+            aviamento.deletaAviamento();
 
-            aviamentosRef.child( aviamento.getKey() ).removeValue();
             aviamentoAdapter.notifyItemRemoved( position );
         });
 

@@ -35,7 +35,7 @@ public class CadastroMoldeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_molde);
 
-        getSupportActionBar().hide();
+       // getSupportActionBar().hide();
 
         iniciarComponentes();
         criarListasDropdown();

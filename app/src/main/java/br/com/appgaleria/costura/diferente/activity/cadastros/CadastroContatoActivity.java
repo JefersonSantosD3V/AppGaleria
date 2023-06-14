@@ -4,20 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import br.com.appgaleria.costura.diferente.R;
-import br.com.appgaleria.costura.diferente.activity.AviamentoActivity;
 import br.com.appgaleria.costura.diferente.activity.ContatoActivity;
-import br.com.appgaleria.costura.diferente.model.Aviamento;
 import br.com.appgaleria.costura.diferente.model.Contato;
-import br.com.appgaleria.costura.diferente.model.Usuario;
 
 public class CadastroContatoActivity extends AppCompatActivity {
 
@@ -31,9 +27,11 @@ public class CadastroContatoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_contato);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         iniciarComponetes();
+
+        txt_telefone.addTextChangedListener(new PhoneTextWatcher());
 
         img_btn_fechar.setOnClickListener(v -> {
             Intent intent = new Intent(CadastroContatoActivity.this, ContatoActivity.class);
@@ -42,10 +40,73 @@ public class CadastroContatoActivity extends AppCompatActivity {
         });
     }
 
+    private class PhoneTextWatcher implements TextWatcher {
+
+        private static final int MAX_PHONE_LENGTH = 10;
+
+        private boolean isFormatting;
+        private boolean deletingHyphen;
+        private int hyphenStart;
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            if (isFormatting) return;
+
+            // Verifica se o usuário está apagando o hífen
+            deletingHyphen = count == 1 && after == 0 && s.charAt(start) == '-';
+            hyphenStart = start;
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (isFormatting) return;
+
+            // Remove os hífens existentes para facilitar a formatação
+            String digits = s.toString().replaceAll("[^0-9]", "");
+
+            StringBuilder formatted = new StringBuilder();
+
+            // Formatação personalizada para um telefone com 10 dígitos
+            int digitCount = 0;
+            int formattedCount = 0;
+            while (formattedCount < digits.length()) {
+                if (digitCount == 0) {
+                    formatted.append('(');
+                } else if (digitCount == 2) {
+                    formatted.append(")");
+                } else if (digitCount == 7) {
+                    formatted.append('-');
+                }
+
+                // Adiciona o dígito atual
+                formatted.append(digits.charAt(formattedCount));
+
+                // Atualiza os contadores
+                digitCount++;
+                formattedCount++;
+            }
+
+            isFormatting = true;
+            txt_telefone.setText(formatted.toString());
+            txt_telefone.setSelection(formatted.length());
+
+            if (deletingHyphen && hyphenStart > 0) {
+                txt_telefone.setSelection(hyphenStart - 1);
+            }
+
+            isFormatting = false;
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    }
+
     public void cadastrarContato(View v) {
-        String nome = txt_nome.getText().toString();
-        String email = txt_email.getText().toString();
-        String telefone = txt_telefone.getText().toString();
+        String nome = txt_nome.getText().toString().trim();
+        String email = txt_email.getText().toString().trim();
+        String telefone = txt_telefone.getText().toString().trim();
+
         //String instagram = txt_instagram.getText().toString();
         //String facebook = txt_facebook.getText().toString();
 

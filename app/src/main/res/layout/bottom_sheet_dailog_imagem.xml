@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_bottom_sheet_dailog">
+    
+    <android.widget.Button
+        android:id="@+id/dailog_btn_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="40dp"
+        android:text="@string/camera"
+        android:drawableStart="@drawable/ic_camera"
+        android:background="@android:color/transparent"/>
+
+    <android.widget.Button
+        android:id="@+id/dailog_btn_galeria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="40dp"
+        android:text="@string/galeria"
+        android:drawableStart="@drawable/ic_galeria"
+        android:background="@android:color/transparent"/>
+
+    <android.widget.Button
+        android:id="@+id/dailog_btn_cancelar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="40dp"
+        android:text="@string/cancelar"
+        android:drawableStart="@drawable/ic_close2"
+        android:background="@android:color/transparent"/>
+
+</LinearLayout>

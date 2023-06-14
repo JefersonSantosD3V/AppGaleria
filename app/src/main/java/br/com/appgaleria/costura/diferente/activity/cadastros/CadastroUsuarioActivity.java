@@ -32,20 +32,21 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_usuario);
 
-        getSupportActionBar().hide();
+       // getSupportActionBar().hide();
 
         iniciarComponetes();
 
         img_btn_fechar.setOnClickListener(v -> {
-            Intent intent = new Intent(CadastroUsuarioActivity.this, LoginActivity.class);
+            Intent intent = new Intent(
+                    CadastroUsuarioActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
     }
 
     public void cadastrarUsuario(View v) {
-        String email = txt_email.getText().toString();
-        String senha = txt_senha.getText().toString();
+        String email = txt_email.getText().toString().trim();
+        String senha = txt_senha.getText().toString().trim();
 
         if (!email.isEmpty() && !senha.isEmpty()) {
             usuario = new Usuario();
@@ -55,15 +56,23 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
             validarCadastroUsuario(usuario);
         }
         else {
-            Toast.makeText(getApplicationContext(), "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Preencha todos os campos.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
     private void validarCadastroUsuario(Usuario usuario) {
         autentificacao = ConfigFirebase.getAutentificacao();
-        autentificacao.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(this, task -> {
+        autentificacao.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).
+                addOnCompleteListener(this, task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(getApplicationContext(), "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                String id = task.getResult().getUser().getUid();
+
+                usuario.setId(id);
+                usuario.salvar();
+
+                Toast.makeText(getApplicationContext(), "Usuário cadastrado com sucesso!",
+                        Toast.LENGTH_SHORT).show();
 
                 //startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();

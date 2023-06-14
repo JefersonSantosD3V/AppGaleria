@@ -24,14 +24,5 @@ public class Info {
         firebaseRef.child("home_info")
                 //.push()
                 .setValue(this);
-
-        //DatabaseReference infoRef = firebaseRef.child("home_info").child("informacao");
-        //infoRef.setValue(this);
-    }
-
-    public void recuperarInfo(){
-        DatabaseReference databaseReference = ConfigFirebase.getFirebase();
-        DatabaseReference descricao = databaseReference.child("home_info").child("descricao");
-        //setInformacao(descricao.getValue());
     }
 }
