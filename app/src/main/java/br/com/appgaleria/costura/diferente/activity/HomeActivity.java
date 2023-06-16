@@ -37,7 +37,7 @@ import br.com.appgaleria.costura.diferente.model.Info;
 public class HomeActivity extends AppCompatActivity {
 
     private Info info;
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
     private TextView txt_info;
     private Button logout,facebook, instagram,share;
     private DatabaseReference firebaseRef = ConfigFirebase.getFirebase();

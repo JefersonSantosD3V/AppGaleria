@@ -53,7 +53,7 @@
         <item>Acessórios</item>
     </string-array>
 
-    <string-array name="spinner_tamanho">
+    <string-array name="dropdown_tamanho">
         <item>PP</item>
         <item>P</item>
         <item>M</item>

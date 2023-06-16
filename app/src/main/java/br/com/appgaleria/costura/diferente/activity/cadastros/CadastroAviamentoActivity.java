@@ -52,19 +52,16 @@ import br.com.appgaleria.costura.diferente.databinding.BottomSheetDailogImagemBi
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 import br.com.appgaleria.costura.diferente.helper.Permissao;
 import br.com.appgaleria.costura.diferente.model.Aviamento;
-import br.com.appgaleria.costura.diferente.model.ImagemUpload;
 import br.com.appgaleria.costura.diferente.model.Info;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CadastroAviamentoActivity extends AppCompatActivity {
 
     private ActivityCadastroAviamentoBinding binding;
     private ImageView img_btn_fechar;
-    private EditText txt_nome, txt_descricao, txt_quantidade;
     private Aviamento aviamento;
     private String currentPhotoPath;
     private int resultCode = 0;
-    private ImagemUpload imagemUpload;
+    private String caminhoImagem = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +87,7 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
         resultCode = 0;
         BottomSheetDailogImagemBinding bottomSheetDailogImagemBinding =
                 BottomSheetDailogImagemBinding.inflate(LayoutInflater.from(this));
+
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
                 this,R.style.BottomSheetDialog);
 
@@ -114,14 +112,12 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
             public void onPermissionGranted() {
                 abrirCamera();
             }
-
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
                 Toast.makeText(getBaseContext(), "Permissão Negada.",
                         Toast.LENGTH_SHORT).show();
             }
         };
-
         showDialogPermissao(
                 permissionlistener,
                 new String[]{Manifest.permission.CAMERA},
@@ -134,13 +130,11 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
             public void onPermissionGranted() {
                 abrirGaleria();
             }
-
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
                 Toast.makeText(getBaseContext(), "Permissão Negada.", Toast.LENGTH_SHORT).show();
             }
         };
-
         showDialogPermissao(
                 permissionlistener,
                 new String[]{Manifest.permission.READ_MEDIA_IMAGES},
@@ -161,23 +155,17 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
         String nome = binding.cadAviEditNome.getText().toString().trim();
         String descricao = binding.cadAviEditDescricao.getText().toString().trim();
         String quantidade = binding.cadAviEditQuantidade.getText().toString().trim();
+        String caminho = this.caminhoImagem;
 
-        if (!nome.isEmpty() && !descricao.isEmpty() && !quantidade.isEmpty()) {
+        if (!nome.isEmpty() && !descricao.isEmpty() && !quantidade.isEmpty() && !caminho.isEmpty()) {
             aviamento = new Aviamento();
             aviamento.setNome(nome);
             aviamento.setDescricao(descricao);
             aviamento.setQuantidade(Double.valueOf(quantidade));
-            salvarImagemFirebase(imagemUpload);
-
-            //aviamento.salvarAviamento();
-
-            Intent intent = new Intent(CadastroAviamentoActivity.this, AviamentoActivity.class);
-            startActivity(intent);
-            finish();
-            Toast.makeText(getApplicationContext(), "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+            salvarImagemFirebase();
         }
         else {
-            Toast.makeText(getApplicationContext(), "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Preencha todos os campos e carregue uma foto.", Toast.LENGTH_SHORT).show();
         }
     }
     private File createImageFile() throws IOException {
@@ -220,8 +208,7 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
         resultLauncher.launch(intent);
     }
 
-    private void salvarImagemFirebase(ImagemUpload imagemUpload){
-        String caminhoImagem = imagemUpload.getCaminhoImagem();
+    private void salvarImagemFirebase(){
 
         StorageReference storageReference = ConfigFirebase.getStorage()
                 .child("imagens")
@@ -230,13 +217,18 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
                 .child("imagem.jpeg");
 
         UploadTask uploadTask = storageReference.putFile(Uri.parse(caminhoImagem));
-        uploadTask.addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnCompleteListener(task -> {
+        uploadTask.addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl()
+                .addOnCompleteListener(task -> {
 
-            imagemUpload.setCaminhoImagem(task.getResult().toString());
+            aviamento.setUrlImagem(task.getResult().toString());
 
-            aviamento.setUrlImagem(imagemUpload);
             aviamento.salvarAviamento();
+            Intent intent = new Intent(CadastroAviamentoActivity.this, AviamentoActivity.class);
+            startActivity(intent);
             finish();
+            Toast.makeText(getApplicationContext(), "Cadastro efetuado com sucesso!",
+                    Toast.LENGTH_SHORT).show();
+
         })).addOnFailureListener(e -> Toast.makeText(
                 this, "Ocorreu um erro com o upload, tente novamente.",
                 Toast.LENGTH_SHORT).show());
@@ -246,8 +238,6 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
-
-                    String caminhoImagem;
 
                     if(resultCode == 0){ //galeria
 
@@ -259,7 +249,6 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
                             binding.cadAviFotoDefault.setVisibility(View.GONE);
                             binding.cadAviFoto.setImageBitmap(getBitmap(imagemSelecionada));
 
-                            imagemUpload = new ImagemUpload(caminhoImagem);
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -272,7 +261,6 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
                         binding.cadAviFotoDefault.setVisibility(View.GONE);
                         binding.cadAviFoto.setImageURI(Uri.fromFile(file));
 
-                        imagemUpload = new ImagemUpload(caminhoImagem);
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package br.com.appgaleria.costura.diferente.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -9,15 +8,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -34,16 +27,12 @@ import java.util.Comparator;
 import java.util.List;
 
 import br.com.appgaleria.costura.diferente.R;
-import br.com.appgaleria.costura.diferente.RecyclerItemClickListener;
 import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroAviamentoActivity;
-import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroMoldeActivity;
 import br.com.appgaleria.costura.diferente.adapter.AviamentoAdapter;
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
-import br.com.appgaleria.costura.diferente.helper.Permissao;
 import br.com.appgaleria.costura.diferente.model.Aviamento;
-import br.com.appgaleria.costura.diferente.model.Contato;
 
-public class AviamentoActivity extends AppCompatActivity {
+public class AviamentoActivity extends AppCompatActivity implements AviamentoAdapter.OnClickListener {
 
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton floatingActionButton;
@@ -81,20 +70,17 @@ public class AviamentoActivity extends AppCompatActivity {
             }
         });
 
-        aviamentoAdapter = new AviamentoAdapter(listaAviamentos,this);
+        aviamentoAdapter = new AviamentoAdapter(listaAviamentos,getApplicationContext(),this);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager( layoutManager );
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
         recyclerView.setAdapter( aviamentoAdapter );
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AviamentoActivity.this, CadastroAviamentoActivity.class);
-                startActivity(intent);
-            }
+        floatingActionButton.setOnClickListener(v -> {
+            Intent intent = new Intent(AviamentoActivity.this, CadastroAviamentoActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -157,6 +143,7 @@ public class AviamentoActivity extends AppCompatActivity {
         aviamentosRef = firebaseRef.child("aviamentos");
 
         valueEventListenerAviamentos = aviamentosRef.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -164,7 +151,6 @@ public class AviamentoActivity extends AppCompatActivity {
                 for (DataSnapshot dados: dataSnapshot.getChildren() ){
 
                     Aviamento aviamento = dados.getValue( Aviamento.class );
-                    //aviamento.setKey( dados.getKey() );
                     listaAviamentos.add( aviamento );
                 }
 
@@ -196,7 +182,8 @@ public class AviamentoActivity extends AppCompatActivity {
             }
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
                 return false;
             }
 
@@ -255,4 +242,11 @@ public class AviamentoActivity extends AppCompatActivity {
         aviamentosRef.removeEventListener(valueEventListenerAviamentos);
     }
 
+    @Override
+    public void OnClick(Aviamento aviamento) {
+        Toast.makeText(getApplicationContext(), aviamento.getNome(), Toast.LENGTH_SHORT).show();
+        //Intent intent = new Intent(getApplicationContext(), EditarAviamento.class);
+        //intent.putExtra("aviamentoSelecionada", aviamento);
+        //startActivity(intent);
+    }
 }

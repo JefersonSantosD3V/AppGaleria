@@ -13,7 +13,7 @@ import br.com.appgaleria.costura.diferente.R;
 
 public class FavoritoActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

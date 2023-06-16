@@ -24,7 +24,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:background">@drawable/container_menu</item>
-
     </style>
 
     <style name="Edit_Text">
@@ -38,11 +37,21 @@
     </style>
 
     <style name="spinner">
-        <item name="android:layout_width">350dp</item>
-        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">330dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:background">@drawable/spinner</item>
         <item name="android:paddingHorizontal">20dp</item>
-        <item name="android:paddingVertical">10dp</item>
+        <item name="android:paddingVertical">5dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
+
+    <style name="Edit_Text_Molde">
+        <item name="android:layout_width">330dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/edit_text2</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:paddingVertical">5dp</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_marginRight">20dp</item>
     </style>

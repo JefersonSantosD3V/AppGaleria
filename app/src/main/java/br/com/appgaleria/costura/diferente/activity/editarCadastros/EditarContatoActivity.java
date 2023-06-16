@@ -1,4 +1,4 @@
-package br.com.appgaleria.costura.diferente.activity;
+package br.com.appgaleria.costura.diferente.activity.editarCadastros;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import br.com.appgaleria.costura.diferente.R;
 
-public class ResultadoConsultaActivity extends AppCompatActivity {
+public class EditarContatoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resultado_consulta);
+        setContentView(R.layout.activity_editar_contato);
     }
 }

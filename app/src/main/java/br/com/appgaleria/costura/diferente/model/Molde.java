@@ -1,32 +1,59 @@
 package br.com.appgaleria.costura.diferente.model;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 
-public class Molde {
+public class Molde implements Serializable {
 
+    private String id;
     private String nome;
-    private String descrição;
+    private String descricao;
     private String tipo;
     private String categoria;
     private String genero;
-    private String tamanho;
-    private Byte[] foto;
+    private List<String> tamanhos = new ArrayList<>();
+    private List<ImagemUpload> urlsImagens = new ArrayList<>();
 
-    private String medida;
 
-    public void salvarMolde(){
+    public void salvarMolde(boolean novoProduto){
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
         firebaseRef.child("moldes")
-                .push()
+                .child(this.getId())
                 .setValue(this);
+    }
 
-        //DatabaseReference moldeRef = firebaseRef.child("moldes");
-        //moldeRef.setValue(this);
+    public void removerMolde() {
+        DatabaseReference firebaseRef = ConfigFirebase.getFirebase()
+                .child("moldes")
+                .child(this.getId());
+        firebaseRef.removeValue();
+
+        for (int i = 0; i < getUrlsImagens().size(); i++) {
+            StorageReference storageReference = ConfigFirebase.getStorage()
+                    .child("imagens")
+                    .child("moldes")
+                    .child(this.getId())
+                    .child("imagem" + i + ".jpeg");
+            storageReference.delete();
+        }
     }
 
     public Molde() {
+        DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
+        this.setId(firebaseRef.push().getKey());
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -37,12 +64,12 @@ public class Molde {
         this.nome = nome;
     }
 
-    public String getDescrição() {
-        return descrição;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescrição(String descrição) {
-        this.descrição = descrição;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getTipo() {
@@ -69,28 +96,19 @@ public class Molde {
         this.genero = genero;
     }
 
-    public String getTamanho() {
-        return tamanho;
+    public List<String> getTamanhos() {
+        return tamanhos;
     }
 
-    public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
+    public void setTamanhos(List<String> tamanhos) {
+        this.tamanhos = tamanhos;
     }
 
-    public Byte[] getFoto() {
-        return foto;
+    public List<ImagemUpload> getUrlsImagens() {
+        return urlsImagens;
     }
 
-    public void setFoto(Byte[] foto) {
-        this.foto = foto;
+    public void setUrlsImagens(List<ImagemUpload> urlsImagens) {
+        this.urlsImagens = urlsImagens;
     }
-/*
-    public String getMedida() {
-        return medida;
-    }
-
-    public void setMedida(String medida) {
-        this.medida = medida;
-    }
-*/
 }

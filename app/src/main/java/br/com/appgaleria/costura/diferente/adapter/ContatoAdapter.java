@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
@@ -24,16 +23,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContatoAdapter extends RecyclerView.Adapter<ContatoAdapter.MyViewHolder> {
     List<Contato> listaContatos;
     Context contexto;
+    OnClickListener onClickListener;
 
     public void setFiltroList(List<Contato> filtro){
         this.listaContatos = filtro;
         notifyDataSetChanged();
     }
 
-    public ContatoAdapter(List<Contato> lista,Context contexto)
+    public ContatoAdapter(List<Contato> lista, Context contexto, MoldeAdapter.OnClickLister onClickLister)
     {
         this.listaContatos = lista;
         this.contexto = contexto;
+        this.onClickListener = onClickListener;
     }
 
     @Override
@@ -49,13 +50,17 @@ public class ContatoAdapter extends RecyclerView.Adapter<ContatoAdapter.MyViewHo
         holder.nome.setText(contato.getNome());
         holder.email.setText(contato.getEmail());
         holder.telefone.setText(contato.getTelefone());
-        //holder.facebook.setText(contato.getFacebook());
-        //holder.instagram.setText(contato.getInstagram());
+
+        holder.itemView.setOnClickListener(v -> onClickListener.OnClick(contato));
     }
 
     @Override
     public int getItemCount() {
         return listaContatos.size();
+    }
+
+    public interface OnClickListener{
+        void OnClick(Contato contato);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -69,8 +74,6 @@ public class ContatoAdapter extends RecyclerView.Adapter<ContatoAdapter.MyViewHo
             email = itemView.findViewById(R.id.textAdapterContato_Email);
             telefone = itemView.findViewById(R.id.textAdapterContato_Telefone);
             img = itemView.findViewById(R.id.img_list_contato_adapter);
-            //  facebook = itemView.findViewById(R.id.textAdapterFacebook);
-            //  instagram = itemView.findViewById(R.id.textAdapterInstagram);
         }
     }
 

@@ -38,7 +38,7 @@
         tools:ignore="HardcodedText" />
 
     <EditText
-        android:text="1234567"
+        android:text="1q2w3e4r"
 
         android:id="@+id/log_edit_senha"
         style="@style/Edit_Text"

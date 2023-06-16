@@ -3,6 +3,7 @@ package br.com.appgaleria.costura.diferente.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -20,22 +21,25 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import br.com.appgaleria.costura.diferente.R;
 import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroMoldeActivity;
+import br.com.appgaleria.costura.diferente.databinding.ActivityCadastroMoldeBinding;
+import br.com.appgaleria.costura.diferente.databinding.ActivityMoldeBinding;
 
 public class MoldeActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
-    AutoCompleteTextView autoCompleteTextView;
-    ArrayAdapter<String> adapterItens;
-    String[] listTop,listBottom,listHibrido,listOutros;
-    View viewControleGenero,viewControleCategoria;
-    ToggleButton tbPP,tbP,tbM,tbG,tbGG,tbEG,tbSM;
-   // TextView min, max;
-    FloatingActionButton floatingActionButton;
+    private BottomNavigationView bottomNavigationView;
+    private AutoCompleteTextView autoCompleteTextView;
+    private ArrayAdapter<String> adapterItens;
+    private String[] listTop,listBottom,listHibrido,listOutros;
+    private View viewControleGenero,viewControleCategoria;
+    private ToggleButton tbPP,tbP,tbM,tbG,tbGG,tbEG,tbSM;
+    private FloatingActionButton floatingActionButton;
+    private ActivityMoldeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_molde);
+        binding = ActivityMoldeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         //getSupportActionBar().hide();
 
@@ -99,8 +103,6 @@ public class MoldeActivity extends AppCompatActivity {
         tbGG = findViewById(R.id.molde_tb_gg);
         tbEG = findViewById(R.id.molde_tb_eg);
         tbSM = findViewById(R.id.molde_tb_sm);
-        //min = findViewById(R.id.molde_tam_min);
-        //max = findViewById(R.id.molde_tam_max);
         floatingActionButton = findViewById(R.id.molde_btn_add);
     }
 
@@ -194,6 +196,7 @@ public class MoldeActivity extends AppCompatActivity {
     }
 
     public void filtrar(View view) {
-
+        Intent intent = new Intent(MoldeActivity.this, ConsultaMoldeActivity.class);
+        startActivity(intent);
     }
 }

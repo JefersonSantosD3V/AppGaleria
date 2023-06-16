@@ -38,10 +38,12 @@ import java.util.Timer;
 import br.com.appgaleria.costura.diferente.R;
 import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroContatoActivity;
 import br.com.appgaleria.costura.diferente.adapter.ContatoAdapter;
+import br.com.appgaleria.costura.diferente.adapter.MoldeAdapter;
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 import br.com.appgaleria.costura.diferente.model.Contato;
+import br.com.appgaleria.costura.diferente.model.Molde;
 
-public class ContatoActivity extends AppCompatActivity {
+public class ContatoActivity extends AppCompatActivity implements MoldeAdapter.OnClickLister {
 
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton floatingActionButton;
@@ -79,7 +81,7 @@ public class ContatoActivity extends AppCompatActivity {
             }
         });
 
-        contatoAdapter = new ContatoAdapter(listaContatos,this);
+        contatoAdapter = new ContatoAdapter(listaContatos,getApplicationContext(),this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager( layoutManager );
@@ -106,7 +108,9 @@ public class ContatoActivity extends AppCompatActivity {
             }
         }
         if(filtro.isEmpty()){
-            //Toast.makeText(getApplicationContext(), "Não encontrado!", Toast.LENGTH_SHORT).show();
+            if (!text.isEmpty()) {
+                //Toast.makeText(getApplicationContext(), "Não encontrado!", Toast.LENGTH_SHORT).show();
+            }
         }
         else{
             contatoAdapter.setFiltroList(filtro);
@@ -201,7 +205,8 @@ public class ContatoActivity extends AppCompatActivity {
             }
 
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
                 return false;
             }
 
@@ -259,5 +264,11 @@ public class ContatoActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         contatosRef.removeEventListener(valueEventListenerContatos);
+    }
+
+    @Override
+    public void onClick(Molde molde) {
+        Toast.makeText(getApplicationContext(), contato.getNome(), Toast.LENGTH_SHORT).show();
+
     }
 }

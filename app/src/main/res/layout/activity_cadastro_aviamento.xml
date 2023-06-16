@@ -84,10 +84,10 @@
         <ImageView
             android:id="@+id/cadAvi_foto_default"
             android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_height="73dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_camera"
-            app:tint="@color/purple_700"/>
+            app:tint="@color/purple_700" />
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton

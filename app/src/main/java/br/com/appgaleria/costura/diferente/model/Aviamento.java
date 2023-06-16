@@ -7,12 +7,12 @@ import java.io.Serializable;
 
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 
-public class Aviamento implements Serializable{
+public class Aviamento{
 
     private String id;
     private String nome, descricao;
     private Double quantidade;
-    private ImagemUpload urlImagem;;
+    private String urlImagem;;
 
 
     public Aviamento() {
@@ -70,11 +70,11 @@ public class Aviamento implements Serializable{
         this.quantidade = quantidade;
     }
 
-    public ImagemUpload getUrlImagem() {
+    public String getUrlImagem() {
         return urlImagem;
     }
 
-    public void setUrlImagem(ImagemUpload urlImagem) {
+    public void setUrlImagem(String urlImagem) {
         this.urlImagem = urlImagem;
     }
 
