@@ -119,7 +119,6 @@ public class LoginActivity extends AppCompatActivity {
     private void iniciarComponentes() {
         btn_cadastrar = findViewById(R.id.log_btn_cadastrar);
         txt_recuperar = findViewById(R.id.log_txt_recuperar);
-        //btn_entrar = findViewById(R.id.log_btn_entrar);
         txt_email = findViewById(R.id.log_edit_email);
         txt_senha = findViewById(R.id.log_edit_senha);
         progress_bar = findViewById(R.id.log_progress_bar);

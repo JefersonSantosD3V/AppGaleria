@@ -39,8 +39,8 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
 
     private ActivityConsultaMoldeBinding binding;
     private ImageView img_btn_fechar;
-    private List<Molde> moldeList = new ArrayList<>();
-    private List<String> idsFavoritos = new ArrayList<>();
+    private final List<Molde> moldeList = new ArrayList<>();
+    private final List<String> idsFavoritos = new ArrayList<>();
     private MoldeAdapter moldeAdapter;
     private AlertDialog dialog;
 
@@ -51,6 +51,7 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
         setContentView(binding.getRoot());
 
         confgRv();
+        recuperaMoldes();
         recuperaFavoritos();
 
         img_btn_fechar = findViewById(R.id.consultaMolde_btn_fechar);
@@ -62,6 +63,14 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
             finish();
         });
     }
+
+    private void confgRv(){
+        binding.rvMoldes.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
+        binding.rvMoldes.setHasFixedSize(true);
+        moldeAdapter = new MoldeAdapter(moldeList,getApplicationContext(),this,this,false,new ArrayList<>());
+        binding.rvMoldes.setAdapter(moldeAdapter);
+    }
+
     private void recuperaFavoritos() {
         if (ConfigFirebase.getAutentifica()) {
             DatabaseReference favoritoRef = ConfigFirebase.getFirebase()
@@ -77,7 +86,7 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
                         String idFavorito = ds.getValue(String.class);
                         idsFavoritos.add(idFavorito);
                     }
-
+                    moldeAdapter.notifyDataSetChanged();
                 }
 
                 @Override
@@ -86,13 +95,6 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
                 }
             });
         }
-    }
-
-    private void confgRv(){
-        binding.rvMoldes.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
-        binding.rvMoldes.setHasFixedSize(true);
-        moldeAdapter = new MoldeAdapter(moldeList,getApplicationContext(),this,this,false,new ArrayList<>());
-        binding.rvMoldes.setAdapter(moldeAdapter);
     }
 
     private void recuperaMoldes(){
@@ -173,12 +175,6 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
         }else {
             binding.textInfo.setText("");
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        recuperaMoldes();
     }
 
     @Override

@@ -25,9 +25,9 @@ public class MoldeAdapter extends RecyclerView.Adapter<MoldeAdapter.MyViewHolder
 
     private List<Molde> listaMoldes;
     private Context context;
+    private boolean favorito;
     private OnClickLister onClickLister;
     private OnClickFavorito onClickFavorito;
-    private boolean favorito;
     private List<String> idsFavoritos;
 
     public MoldeAdapter(List<Molde> listaMoldes, Context context, OnClickLister onClickLister, MoldeAdapter.OnClickFavorito onClickFavorito, boolean favorito, List<String> idsFavoritos) {
@@ -52,11 +52,12 @@ public class MoldeAdapter extends RecyclerView.Adapter<MoldeAdapter.MyViewHolder
         Molde molde = listaMoldes.get(position);
 
         holder.txtNomeMolde.setText(molde.getNome());
+        holder.txtDescricaoMolde.setText(molde.getDescricao());
 
         if(favorito){
             holder.likeButton.setLiked(idsFavoritos.contains(molde.getId()));
-        }else {
-            holder.likeButton.setVisibility(View.GONE);
+        //}else {
+            //holder.likeButton.setVisibility(View.GONE);
         }
 
         holder.likeButton.setOnLikeListener(new OnLikeListener() {
@@ -84,7 +85,6 @@ public class MoldeAdapter extends RecyclerView.Adapter<MoldeAdapter.MyViewHolder
             }
         }
 
-        holder.txtDescricaoMolde.setText(molde.getDescricao());
         holder.itemView.setOnClickListener(v -> onClickLister.onClick(molde));
 
     }
