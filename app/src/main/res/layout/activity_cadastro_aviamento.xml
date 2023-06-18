@@ -47,7 +47,7 @@
         android:id="@+id/cadAvi_edit_descricao"
         style="@style/Edit_Text"
         android:layout_marginTop="10dp"
-        android:hint="Descrição"
+        android:hint="Observação"
         android:singleLine="false"
         app:layout_constraintEnd_toEndOf="@id/cadAvi_container_componentes"
         app:layout_constraintStart_toStartOf="@id/cadAvi_container_componentes"

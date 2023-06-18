@@ -2,16 +2,11 @@ package br.com.appgaleria.costura.diferente.activity.cadastros;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
@@ -21,26 +16,21 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
+import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.BitSet;
 import java.util.Date;
 import java.util.List;
 
@@ -50,9 +40,7 @@ import br.com.appgaleria.costura.diferente.databinding.ActivityCadastroAviamento
 import br.com.appgaleria.costura.diferente.databinding.BottomSheetDailogImagemBinding;
 
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
-import br.com.appgaleria.costura.diferente.helper.Permissao;
 import br.com.appgaleria.costura.diferente.model.Aviamento;
-import br.com.appgaleria.costura.diferente.model.Info;
 
 public class CadastroAviamentoActivity extends AppCompatActivity {
 
@@ -62,6 +50,7 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
     private String currentPhotoPath;
     private int resultCode = 0;
     private String caminhoImagem = "";
+    private boolean novoAviamento = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +59,9 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
        // getSupportActionBar().hide();
+
+        getExtra();
+        iniciarComponentes();
 
         img_btn_fechar = findViewById(R.id.cadAvi_btn_fechar);
 
@@ -81,6 +73,24 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
         });
 
         binding.cadAviFoto.setOnClickListener(v -> dialogImage());
+    }
+
+    private void getExtra() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            aviamento = (Aviamento) bundle.getSerializable("aviamentoSelecionado");
+            configAviamento();
+        }
+    }
+
+    private void configAviamento(){
+        novoAviamento = false;
+
+        Picasso.get().load(aviamento.getUrlImagem()).into(binding.cadAviFoto);
+
+        binding.cadAviEditNome.setText(aviamento.getNome());
+        binding.cadAviEditDescricao.setText(aviamento.getDescricao());
+        binding.cadAviEditQuantidade.setText(String.valueOf(aviamento.getQuantidade()));
     }
 
     private void dialogImage(){
@@ -158,13 +168,30 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
         String caminho = this.caminhoImagem;
 
         if (!nome.isEmpty() && !descricao.isEmpty() && !quantidade.isEmpty() && !caminho.isEmpty()) {
-            aviamento = new Aviamento();
+            if(aviamento == null) aviamento = new Aviamento();
+
             aviamento.setNome(nome);
             aviamento.setDescricao(descricao);
             aviamento.setQuantidade(Double.valueOf(quantidade));
-            salvarImagemFirebase();
-        }
-        else {
+
+            if(novoAviamento){
+                if(caminhoImagem != null){
+                    salvarImagemFirebase();
+                }else{
+                    Snackbar.make(
+                            binding.cadAviFoto,
+                            "Selecione a imagem.",
+                            Snackbar.LENGTH_SHORT
+                    ).show();
+                }
+            }else{
+                if(caminhoImagem != null){
+                    salvarImagemFirebase();
+                }else{
+                    aviamento.salvarAviamento();
+                }
+            }
+        }else {
             Toast.makeText(getApplicationContext(), "Preencha todos os campos e carregue uma foto.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -221,13 +248,11 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
 
             aviamento.setUrlImagem(task.getResult().toString());
-
             aviamento.salvarAviamento();
-            Intent intent = new Intent(CadastroAviamentoActivity.this, AviamentoActivity.class);
-            startActivity(intent);
-            finish();
-            Toast.makeText(getApplicationContext(), "Cadastro efetuado com sucesso!",
-                    Toast.LENGTH_SHORT).show();
+
+            if(novoAviamento){
+                finish();
+            }
 
         })).addOnFailureListener(e -> Toast.makeText(
                 this, "Ocorreu um erro com o upload, tente novamente.",
@@ -279,5 +304,15 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return bitmap;
+    }
+
+    private void iniciarComponentes() {
+        if (novoAviamento) {
+            binding.cadAviTituloCadastrar.setText("Cadastrar\nAviamento");
+            binding.cadAviBtnCadastrar.setText("CADASTRAR");
+        } else {
+            binding.cadAviTituloCadastrar.setText("Editar\nAviamento");
+            binding.cadAviBtnCadastrar.setText("EDITAR");
+        }
     }
 }

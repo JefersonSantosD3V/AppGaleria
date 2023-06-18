@@ -3,35 +3,45 @@ package br.com.appgaleria.costura.diferente.model;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 
-public class Contato {
+public class Contato implements Serializable{
 
+    private String id;
     private String nome ;
     private String email;
     private String telefone;
     private String chave;
-    //private String instagram;
-   // private String facebook;
 
     public void salvarContato(){
-        DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        firebaseRef.child("contatos")
-                .push()
-                .setValue(this);
+        DatabaseReference reference = ConfigFirebase.getFirebase()
+                .child("contatos")
+                .child(this.getId());
+        reference.setValue(this);
+    }
+
+    public void deletaContao(){
+        DatabaseReference reference = ConfigFirebase.getFirebase()
+                .child("contatos")
+                .child(this.getId());
+        reference.removeValue();
     }
 
     public Contato() {
+        DatabaseReference reference = ConfigFirebase.getFirebase();
+        this.setId(reference.push().getKey());
     }
 
-    public Contato(String nome, String email, String telefone,String chave) {
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-        this.chave = chave;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNome() { return nome; }
@@ -63,22 +73,4 @@ public class Contato {
     public void setChave(String chave) {
         this.chave = chave;
     }
-/*
-    public String getInstagram() {
-        return instagram;
-    }
-
-    public void setInstagram(String instagram) {
-        this.instagram = instagram;
-    }
-
-    public String getFacebook() {
-        return facebook;
-    }
-
-    public void setFacebook(String facebook) {
-        this.facebook = facebook;
-    }
-
- */
 }

@@ -67,7 +67,7 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
     private void confgRv(){
         binding.rvMoldes.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
         binding.rvMoldes.setHasFixedSize(true);
-        moldeAdapter = new MoldeAdapter(moldeList,getApplicationContext(),this,this,false,new ArrayList<>());
+        moldeAdapter = new MoldeAdapter(moldeList,getApplicationContext(),this,this,true,idsFavoritos);
         binding.rvMoldes.setAdapter(moldeAdapter);
     }
 
@@ -86,7 +86,6 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
                         String idFavorito = ds.getValue(String.class);
                         idsFavoritos.add(idFavorito);
                     }
-                    moldeAdapter.notifyDataSetChanged();
                 }
 
                 @Override
@@ -190,5 +189,11 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
             idsFavoritos.remove(molde.getId());
         }
         Favorito.salvar(idsFavoritos);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }

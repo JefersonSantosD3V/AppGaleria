@@ -21,8 +21,6 @@
         tools:ignore="ContentDescription" />
 
     <EditText
-        android:text="jeferson.santos.devbi@gmail.com"
-
         android:id="@+id/log_edit_email"
         style="@style/Edit_Text"
         android:layout_marginTop="120dp"
@@ -38,8 +36,6 @@
         tools:ignore="HardcodedText" />
 
     <EditText
-        android:text="1q2w3e4r"
-
         android:id="@+id/log_edit_senha"
         style="@style/Edit_Text"
         android:layout_marginTop="2dp"

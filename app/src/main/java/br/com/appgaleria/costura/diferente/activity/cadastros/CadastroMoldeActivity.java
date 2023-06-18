@@ -105,7 +105,6 @@ public class CadastroMoldeActivity extends AppCompatActivity implements TamanhoD
             startActivity(intent);
             finish();
         });
-
     }
 
     public void cadastrarMolde(View v) {
@@ -113,7 +112,6 @@ public class CadastroMoldeActivity extends AppCompatActivity implements TamanhoD
         String descricao = binding.cadMolEditDescricao.getText().toString().trim();
 
         if (!nome.isEmpty()) {
-            if (!descricao.isEmpty()) {
                 if(!idsTamanhosSelecionadas.isEmpty()){
                     if (molde == null) molde = new Molde();
 
@@ -148,9 +146,6 @@ public class CadastroMoldeActivity extends AppCompatActivity implements TamanhoD
                     Toast.makeText(this, "Seleciona pelo menos um tamanho para o molde.",
                             Toast.LENGTH_SHORT).show();
                 }
-            }else{
-                binding.cadMolEditDescricao.setError("Informação obrigatória.");
-            }
         }else{
             binding.cadMolEditNome.setError("Informação obrigatória.");
         }
@@ -543,8 +538,10 @@ public class CadastroMoldeActivity extends AppCompatActivity implements TamanhoD
 
         if (novoMolde) {
             binding.cadMolTituloCadastrar.setText("Cadastrar\nMolde");
+            binding.cadMolBtnCadastrar.setText("CADASTRAR");
         } else {
             binding.cadMolTituloCadastrar.setText("Editar\nMolde");
+            binding.cadMolBtnCadastrar.setText("EDITAR");
         }
     }
 

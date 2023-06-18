@@ -149,7 +149,6 @@ public class AviamentoActivity extends AppCompatActivity implements AviamentoAda
 
                 listaAviamentos.clear();
                 for (DataSnapshot dados: dataSnapshot.getChildren() ){
-
                     Aviamento aviamento = dados.getValue( Aviamento.class );
                     listaAviamentos.add( aviamento );
                 }
@@ -244,9 +243,8 @@ public class AviamentoActivity extends AppCompatActivity implements AviamentoAda
 
     @Override
     public void OnClick(Aviamento aviamento) {
-        Toast.makeText(getApplicationContext(), aviamento.getNome(), Toast.LENGTH_SHORT).show();
-        //Intent intent = new Intent(getApplicationContext(), EditarAviamento.class);
-        //intent.putExtra("aviamentoSelecionada", aviamento);
-        //startActivity(intent);
+        Intent intent = new Intent(getApplicationContext(),CadastroAviamentoActivity.class);
+        intent.putExtra("aviamentoSelecionado",aviamento);
+        startActivity(intent);
     }
 }

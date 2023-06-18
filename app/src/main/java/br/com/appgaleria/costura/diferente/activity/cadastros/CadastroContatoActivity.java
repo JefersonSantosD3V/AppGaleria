@@ -13,22 +13,28 @@ import android.widget.Toast;
 
 import br.com.appgaleria.costura.diferente.R;
 import br.com.appgaleria.costura.diferente.activity.ContatoActivity;
+import br.com.appgaleria.costura.diferente.databinding.ActivityCadastroAviamentoBinding;
+import br.com.appgaleria.costura.diferente.databinding.ActivityCadastroContatoBinding;
 import br.com.appgaleria.costura.diferente.model.Contato;
+import br.com.appgaleria.costura.diferente.model.Molde;
 
 public class CadastroContatoActivity extends AppCompatActivity {
 
     private ImageView img_btn_fechar;
-    //private Button btn_cadastrar;
     private EditText txt_nome, txt_email, txt_telefone/*,txt_instagram,txt_facebook*/;
     private Contato contato;
+    private ActivityCadastroContatoBinding binding;
+    private boolean novoContato = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro_contato);
+        binding = ActivityCadastroContatoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         //getSupportActionBar().hide();
 
+        getExtra();
         iniciarComponetes();
 
         txt_telefone.addTextChangedListener(new PhoneTextWatcher());
@@ -38,6 +44,22 @@ public class CadastroContatoActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+
+    private void getExtra() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            contato = (Contato) bundle.getSerializable("contatoSelecionado");
+            configContato();
+        }
+    }
+
+    private void configContato(){
+        novoContato = false;
+
+        binding.cadConEditNome.setText(contato.getNome());
+        binding.cadConEditEmail.setText(contato.getEmail());
+        binding.cadConEditTelefone.setText(contato.getTelefone());
     }
 
     private class PhoneTextWatcher implements TextWatcher {
@@ -107,23 +129,19 @@ public class CadastroContatoActivity extends AppCompatActivity {
         String email = txt_email.getText().toString().trim();
         String telefone = txt_telefone.getText().toString().trim();
 
-        //String instagram = txt_instagram.getText().toString();
-        //String facebook = txt_facebook.getText().toString();
-
         if (!nome.isEmpty() && !telefone.isEmpty()) {
-            contato = new Contato();
+            if(contato == null) contato = new Contato();
             contato.setNome(nome);
             contato.setTelefone(telefone);
             contato.setEmail(email);
-            //contato.setInstagram(instagram);
-            //contato.setFacebook(facebook);
 
-            contato.salvarContato();
-
-            Intent intent = new Intent(CadastroContatoActivity.this, ContatoActivity.class);
-            startActivity(intent);
-            finish();
-            Toast.makeText(getApplicationContext(), "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+            if(novoContato){
+                contato.salvarContato();
+                finish();
+                Toast.makeText(getApplicationContext(), "Cadastro efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+            }else{
+                contato.salvarContato();
+            }
         }
         else {
             Toast.makeText(getApplicationContext(), "Preencha os campos obrigatórios (*).", Toast.LENGTH_SHORT).show();
@@ -132,11 +150,17 @@ public class CadastroContatoActivity extends AppCompatActivity {
 
     private void iniciarComponetes() {
         img_btn_fechar = findViewById(R.id.cadCon_btn_fechar);
-        //btn_cadastrar = findViewById(R.id.cadCon_btn_cadastrar);
         txt_nome = findViewById(R.id.cadCon_edit_nome);
         txt_email = findViewById(R.id.cadCon_edit_email);
         txt_telefone = findViewById(R.id.cadCon_edit_telefone);
-        //txt_facebook = findViewById(R.id.cadCon_edit_facebook);
-        //txt_instagram = findViewById(R.id.cadCon_edit_instagram);
+
+        if (novoContato) {
+            binding.cadConTituloCadastrar.setText("Cadastrar\nContato");
+            binding.cadConBtnCadastrar.setText("CADASTRAR");
+        } else {
+            binding.cadConTituloCadastrar.setText("Editar\nContato");
+            binding.cadConBtnCadastrar.setText("EDITAR");
+        }
+
     }
 }

@@ -2,36 +2,30 @@ package br.com.appgaleria.costura.diferente.activity;
 
 import androidx.annotation.NonNull;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.URL;
+import android.net.Uri;
+
 import br.com.appgaleria.costura.diferente.R;
-import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroAviamentoActivity;
-import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroMoldeActivity;
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
-import br.com.appgaleria.costura.diferente.helper.Permissao;
 import br.com.appgaleria.costura.diferente.model.Info;
 
 public class HomeActivity extends AppCompatActivity {
@@ -59,7 +53,49 @@ public class HomeActivity extends AppCompatActivity {
             deslogar();
         });
 
+        instagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String perfilInstagram = "galeria.costura.diferente";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/_u/" + perfilInstagram));
+                intent.setPackage("com.instagram.android");
+                try{
+                    startActivity(intent);
+                }catch (android.content.ActivityNotFoundException ex){
+                    // Instagram não está instalado, abra o perfil no navegador
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://instagram.com/" + perfilInstagram)));
+                }
+            }
+        });
+
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String facebookProfile = "galeria.costura.diferente";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + facebookProfile));
+                intent.setPackage("com.facebook.katana");
+                try {
+                    startActivity(intent);
+                } catch (android.content.ActivityNotFoundException ex) {
+                    // Facebook não está instalado, abra o perfil no navegador
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/" + facebookProfile)));
+                }
+            }
+        });
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String linktree = "https://linktr.ee/galeria.costura.diferente";
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, linktree);
+                startActivity(Intent.createChooser(intent, "Compartilhar via"));
+            }
+        });
     }
+
+
 
     public void salvarInfo(View v) {
         String txt = txt_info.getText().toString();
@@ -132,10 +168,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void iniciarComponentes(){
-        logout=findViewById(R.id.home_logout);
-        facebook=findViewById(R.id.home_facebook);
-        instagram=findViewById(R.id.home_instagram);
-        instagram=findViewById(R.id.home_share);
-        txt_info=findViewById(R.id.home_info);
+        logout = findViewById(R.id.home_logout);
+        facebook = findViewById(R.id.home_facebook);
+        instagram = findViewById(R.id.home_instagram);
+        share = findViewById(R.id.home_share);
+        txt_info = findViewById(R.id.home_info);
+
     }
 }

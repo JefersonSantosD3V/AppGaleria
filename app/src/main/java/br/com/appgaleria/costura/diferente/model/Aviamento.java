@@ -7,18 +7,13 @@ import java.io.Serializable;
 
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 
-public class Aviamento{
+public class Aviamento implements Serializable{
 
     private String id;
     private String nome, descricao;
     private Double quantidade;
     private String urlImagem;;
 
-
-    public Aviamento() {
-        DatabaseReference reference = ConfigFirebase.getFirebase();
-        this.setId(reference.push().getKey());
-    }
     public void salvarAviamento() {
         DatabaseReference reference = ConfigFirebase.getFirebase()
                 .child("aviamentos")
@@ -39,7 +34,10 @@ public class Aviamento{
                 .child("imagem.jpeg");
         storageReference.delete();
     }
-
+    public Aviamento() {
+        DatabaseReference reference = ConfigFirebase.getFirebase();
+        this.setId(reference.push().getKey());
+    }
     public String getId() {
         return id;
     }

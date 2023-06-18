@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,38 +12,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Timer;
 
 import br.com.appgaleria.costura.diferente.R;
+import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroAviamentoActivity;
 import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroContatoActivity;
 import br.com.appgaleria.costura.diferente.adapter.ContatoAdapter;
-import br.com.appgaleria.costura.diferente.adapter.MoldeAdapter;
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 import br.com.appgaleria.costura.diferente.model.Contato;
-import br.com.appgaleria.costura.diferente.model.Molde;
 
-public class ContatoActivity extends AppCompatActivity implements MoldeAdapter.OnClickLister {
+
+
+public class ContatoActivity extends AppCompatActivity implements ContatoAdapter.OnClickListener {
 
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton floatingActionButton;
@@ -170,11 +165,8 @@ public class ContatoActivity extends AppCompatActivity implements MoldeAdapter.O
 
                 listaContatos.clear();
                 for (DataSnapshot dados: dataSnapshot.getChildren() ){
-
                     Contato contato = dados.getValue( Contato.class );
-                    contato.setChave( dados.getKey() );
                     listaContatos.add( contato );
-                    //Toast.makeText(getApplicationContext(), contato.getChave(), Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -234,9 +226,8 @@ public class ContatoActivity extends AppCompatActivity implements MoldeAdapter.O
             int position = viewHolder.getAbsoluteAdapterPosition();
             contato = listaContatos.get( position );
 
-            contatosRef = firebaseRef.child("contatos");
+            contato.deletaContao();
 
-            contatosRef.child( contato.getChave() ).removeValue();
             contatoAdapter.notifyItemRemoved( position );
         });
 
@@ -254,7 +245,6 @@ public class ContatoActivity extends AppCompatActivity implements MoldeAdapter.O
         alert.show();
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -268,8 +258,9 @@ public class ContatoActivity extends AppCompatActivity implements MoldeAdapter.O
     }
 
     @Override
-    public void onClick(Molde molde) {
-        Toast.makeText(getApplicationContext(), contato.getNome(), Toast.LENGTH_SHORT).show();
-
+    public void OnClick(Contato contato) {
+        Intent intent = new Intent(getApplicationContext(), CadastroContatoActivity.class);
+        intent.putExtra("contatoSelecionado",contato);
+        startActivity(intent);
     }
 }

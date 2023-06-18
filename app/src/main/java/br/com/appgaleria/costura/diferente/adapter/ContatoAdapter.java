@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,14 +24,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContatoAdapter extends RecyclerView.Adapter<ContatoAdapter.MyViewHolder> {
     List<Contato> listaContatos;
     Context contexto;
-    OnClickListener onClickListener;
+    private OnClickListener onClickListener;
 
     public void setFiltroList(List<Contato> filtro){
         this.listaContatos = filtro;
         notifyDataSetChanged();
     }
 
-    public ContatoAdapter(List<Contato> lista, Context contexto, MoldeAdapter.OnClickLister onClickLister)
+    public ContatoAdapter(List<Contato> lista, Context contexto, OnClickListener onClickListener)
     {
         this.listaContatos = lista;
         this.contexto = contexto;
