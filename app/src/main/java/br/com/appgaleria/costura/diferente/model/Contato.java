@@ -1,9 +1,6 @@
 package br.com.appgaleria.costura.diferente.model;
 
-import android.widget.Toast;
-
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 

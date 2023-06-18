@@ -21,9 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.net.URL;
-import android.net.Uri;
-
 import br.com.appgaleria.costura.diferente.R;
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 import br.com.appgaleria.costura.diferente.model.Info;
@@ -71,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String facebookProfile = "galeria.costura.diferente";
+                String facebookProfile = "galeria.costura.diferente/";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/" + facebookProfile));
                 intent.setPackage("com.facebook.katana");
                 try {

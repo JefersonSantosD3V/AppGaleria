@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -18,15 +16,15 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import br.com.appgaleria.costura.diferente.R;
-import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroAviamentoActivity;
 import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroMoldeActivity;
 import br.com.appgaleria.costura.diferente.adapter.MoldeAdapter;
 import br.com.appgaleria.costura.diferente.databinding.ActivityConsultaMoldeBinding;
@@ -43,6 +41,8 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
     private final List<String> idsFavoritos = new ArrayList<>();
     private MoldeAdapter moldeAdapter;
     private AlertDialog dialog;
+    String tipoSelecionado,categoriaSelecionada,generoSelecionado;
+    List<String> listaTamanhhosSelecionados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,12 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
         setContentView(binding.getRoot());
 
         confgRv();
-        recuperaMoldes();
         recuperaFavoritos();
+
+        tipoSelecionado = getIntent().getStringExtra("tipoSelecionado");
+        categoriaSelecionada = getIntent().getStringExtra("categoriaSelecionada");
+        generoSelecionado = getIntent().getStringExtra("generoSelecionado");
+        listaTamanhhosSelecionados = getIntent().getStringArrayListExtra("tamanhosSelecionads");
 
         img_btn_fechar = findViewById(R.id.consultaMolde_btn_fechar);
 
@@ -64,12 +68,103 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        recuperaMoldes();
+    }
+
     private void confgRv(){
         binding.rvMoldes.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
         binding.rvMoldes.setHasFixedSize(true);
         moldeAdapter = new MoldeAdapter(moldeList,getApplicationContext(),this,this,true,idsFavoritos);
         binding.rvMoldes.setAdapter(moldeAdapter);
     }
+
+/*
+    private void recuperaFavoritos() {
+        if (ConfigFirebase.getAutentifica()) {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference favoritosRef = database.getReference("favoritos");
+
+            Query query = favoritosRef;
+
+            if(tipoSelecionado != null){
+                query = query.orderByChild(tipoSelecionado);
+            }
+            if(categoriaSelecionada != null){
+                query = query.orderByChild(categoriaSelecionada);
+            }
+            if(generoSelecionado != null){
+                query = query.orderByChild(generoSelecionado);
+            }
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    idsFavoritos.clear();
+
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        String idFavorito = ds.getValue(String.class);
+
+
+                            idsFavoritos.add(idFavorito);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+    }*/
+
+    private void recuperaMoldes(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference moldesRef = database.getReference("moldes");
+
+        Query query = moldesRef;
+
+        if(tipoSelecionado != null){
+            query = query.orderByChild(tipoSelecionado);
+        }
+        if(categoriaSelecionada != null){
+            query = query.orderByChild(categoriaSelecionada);
+        }
+        if(generoSelecionado != null){
+            query = query.orderByChild(generoSelecionado);
+        }
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                moldeList.clear();
+
+                for(DataSnapshot data: snapshot.getChildren()){
+                    Molde molde = data.getValue(Molde.class);
+
+                    if(listaTamanhhosSelecionados.isEmpty() || listaTamanhhosSelecionados.contains(molde.getTamanhos())){
+                        moldeList.add(molde);
+                    }
+                }
+
+                listEmpty();
+
+                binding.progressBar.setVisibility(View.GONE);
+                Collections.reverse(moldeList);
+                moldeAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
 
     private void recuperaFavoritos() {
         if (ConfigFirebase.getAutentifica()) {
@@ -95,7 +190,7 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
             });
         }
     }
-
+/*
     private void recuperaMoldes(){
         DatabaseReference moldeRef = ConfigFirebase.getFirebase()
                 .child("moldes");
@@ -121,7 +216,7 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
             }
         });
     }
-
+*/
     private void showDialog(Molde molde) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
 
@@ -137,7 +232,7 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
         }
 
         dialogBinding.dialogMoldeBtnAcessar.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), DetalheMoldeActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MoldeDetalheActivity.class);
             intent.putExtra("moldeSelecionado", molde);
             startActivity(intent);
             dialog.dismiss();

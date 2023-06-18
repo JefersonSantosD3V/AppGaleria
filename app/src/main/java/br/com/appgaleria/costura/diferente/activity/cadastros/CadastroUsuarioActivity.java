@@ -22,7 +22,6 @@ import br.com.appgaleria.costura.diferente.model.Usuario;
 public class CadastroUsuarioActivity extends AppCompatActivity {
 
     private ImageView img_btn_fechar;
-    //private Button btn_cadastrar;
     private EditText txt_email, txt_senha;
     private FirebaseAuth autentificacao;
     private Usuario usuario;
@@ -97,7 +96,6 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
 
     private void iniciarComponetes() {
         img_btn_fechar = findViewById(R.id.cad_btn_fechar);
-        //btn_cadastrar = findViewById(R.id.cad_btn_cadastrar);
         txt_email = findViewById(R.id.cad_edit_email);
         txt_senha = findViewById(R.id.cad_edit_senha);
     }

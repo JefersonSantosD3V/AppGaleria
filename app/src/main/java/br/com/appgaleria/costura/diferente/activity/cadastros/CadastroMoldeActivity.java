@@ -3,9 +3,7 @@ package br.com.appgaleria.costura.diferente.activity.cadastros;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
@@ -14,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,21 +19,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
@@ -47,8 +40,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -59,8 +50,6 @@ import br.com.appgaleria.costura.diferente.databinding.ActivityCadastroMoldeBind
 import br.com.appgaleria.costura.diferente.databinding.BottomSheetDailogImagemBinding;
 import br.com.appgaleria.costura.diferente.databinding.DialogFormMoldeTamanhoBinding;
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
-import br.com.appgaleria.costura.diferente.helper.Permissao;
-import br.com.appgaleria.costura.diferente.model.Aviamento;
 import br.com.appgaleria.costura.diferente.model.ImagemUpload;
 import br.com.appgaleria.costura.diferente.model.Molde;
 
@@ -83,6 +72,7 @@ public class CadastroMoldeActivity extends AppCompatActivity implements TamanhoD
     private String tipoSelecionado;
     private String catelgoriaSelecionada;
     private String generoSelecionado;
+    private int idTipo, idCategoria, idGenero;
 
     @SuppressLint("ResourceType")
     @Override
@@ -105,6 +95,14 @@ public class CadastroMoldeActivity extends AppCompatActivity implements TamanhoD
             startActivity(intent);
             finish();
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(novoMolde == false) {
+            selecaoSpinner(idTipo, idCategoria, idGenero);
+        }
     }
 
     public void cadastrarMolde(View v) {
@@ -182,6 +180,10 @@ public class CadastroMoldeActivity extends AppCompatActivity implements TamanhoD
 
         binding.cadMolEditNome.setText(molde.getNome());
         binding.cadMolEditDescricao.setText(molde.getDescricao());
+
+        idTipo = listTipo.indexOf(molde.getTipo());
+        idCategoria = listCategoriaHibrido.indexOf(molde.getCategoria());
+        idGenero = listGenero.indexOf(molde.getGenero());
 
     }
 

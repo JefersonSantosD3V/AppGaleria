@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btn_cadastrar;
     private TextView txt_recuperar;
-    //private Button btn_entrar;
     private EditText txt_email, txt_senha;
     private ProgressBar progress_bar;
     private Usuario usuario;

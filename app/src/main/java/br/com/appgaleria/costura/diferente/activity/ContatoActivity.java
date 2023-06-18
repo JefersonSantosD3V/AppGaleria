@@ -31,7 +31,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import br.com.appgaleria.costura.diferente.R;
-import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroAviamentoActivity;
 import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroContatoActivity;
 import br.com.appgaleria.costura.diferente.adapter.ContatoAdapter;
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;

@@ -13,10 +13,8 @@ import android.widget.Toast;
 
 import br.com.appgaleria.costura.diferente.R;
 import br.com.appgaleria.costura.diferente.activity.ContatoActivity;
-import br.com.appgaleria.costura.diferente.databinding.ActivityCadastroAviamentoBinding;
 import br.com.appgaleria.costura.diferente.databinding.ActivityCadastroContatoBinding;
 import br.com.appgaleria.costura.diferente.model.Contato;
-import br.com.appgaleria.costura.diferente.model.Molde;
 
 public class CadastroContatoActivity extends AppCompatActivity {
 

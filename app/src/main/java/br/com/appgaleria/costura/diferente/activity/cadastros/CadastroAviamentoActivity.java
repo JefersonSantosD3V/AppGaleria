@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.StorageReference;
@@ -86,6 +85,7 @@ public class CadastroAviamentoActivity extends AppCompatActivity {
     private void configAviamento(){
         novoAviamento = false;
 
+        binding.cadAviFotoDefault.setVisibility(View.GONE);
         Picasso.get().load(aviamento.getUrlImagem()).into(binding.cadAviFoto);
 
         binding.cadAviEditNome.setText(aviamento.getNome());

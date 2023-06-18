@@ -15,11 +15,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //esconde actcionbar
-        //getSupportActionBar().hide();
-        //tela cheia
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

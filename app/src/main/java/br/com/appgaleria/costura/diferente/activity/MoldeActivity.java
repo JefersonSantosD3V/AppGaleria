@@ -3,7 +3,6 @@ package br.com.appgaleria.costura.diferente.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -13,16 +12,28 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import br.com.appgaleria.costura.diferente.R;
 import br.com.appgaleria.costura.diferente.activity.cadastros.CadastroMoldeActivity;
-import br.com.appgaleria.costura.diferente.databinding.ActivityCadastroMoldeBinding;
 import br.com.appgaleria.costura.diferente.databinding.ActivityMoldeBinding;
+import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
+import br.com.appgaleria.costura.diferente.model.Molde;
 
 public class MoldeActivity extends AppCompatActivity {
 
@@ -34,6 +45,8 @@ public class MoldeActivity extends AppCompatActivity {
     private ToggleButton tbPP,tbP,tbM,tbG,tbGG,tbEG,tbSM;
     private FloatingActionButton floatingActionButton;
     private ActivityMoldeBinding binding;
+    private String tipo,categoria,genero;
+    private List<String> listTamanhosSelecionados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,13 +102,12 @@ public class MoldeActivity extends AppCompatActivity {
                     }
                     return false;
                 }
-             //   return false;
-           // }
         });
     }
 
     private void iniciarComponentes() {
         autoCompleteTextView = findViewById(R.id.molde_autocomplete_dropdown);
+        floatingActionButton = findViewById(R.id.molde_btn_add);
         tbPP = findViewById(R.id.molde_tb_pp);
         tbP = findViewById(R.id.molde_tb_p);
         tbM = findViewById(R.id.molde_tb_m);
@@ -103,7 +115,9 @@ public class MoldeActivity extends AppCompatActivity {
         tbGG = findViewById(R.id.molde_tb_gg);
         tbEG = findViewById(R.id.molde_tb_eg);
         tbSM = findViewById(R.id.molde_tb_sm);
-        floatingActionButton = findViewById(R.id.molde_btn_add);
+        tipo = null;
+        categoria = null;
+        genero = null;
     }
 
     private void criarListasDropdown(){
@@ -120,8 +134,7 @@ public class MoldeActivity extends AppCompatActivity {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-      //          String item = parent.getItemAtPosition(position).toString();
-        //        Toast.makeText(MoldeActivity.this, "Item:"+item, Toast.LENGTH_SHORT).show();
+                categoria = autoCompleteTextView.getText().toString();
             }
         });
     }
@@ -158,6 +171,7 @@ public class MoldeActivity extends AppCompatActivity {
                 break;
         }
         viewControleCategoria = view;
+        tipo = ((RadioButton) view).getText().toString();
     }
 
     public void opcaoGenero(View view) {
@@ -175,6 +189,7 @@ public class MoldeActivity extends AppCompatActivity {
                 break;
         }
         viewControleGenero = view;
+        genero = ((RadioButton) view).getText().toString();
     }
 
     public void opcaoTamanho(View view) {
@@ -189,14 +204,28 @@ public class MoldeActivity extends AppCompatActivity {
         case R.id.molde_tb_eg:
         case R.id.molde_tb_sm:
             if (checked) {
-
+                listTamanhosSelecionados.add(((ToggleButton) view).getText().toString());
+            }else{
+                listTamanhosSelecionados.remove(((ToggleButton) view).getText().toString());
             }
             break;
         }
     }
 
     public void filtrar(View view) {
-        Intent intent = new Intent(MoldeActivity.this, ConsultaMoldeActivity.class);
-        startActivity(intent);
+
+        if(!tipo.isEmpty() && !categoria.isEmpty() && !genero.isEmpty() && !listTamanhosSelecionados.isEmpty()) {
+
+            Intent intent = new Intent(MoldeActivity.this, ConsultaMoldeActivity.class);
+
+            intent.putExtra("tipoSelecionado", tipo);
+            intent.putExtra("categoriaSelecionada", categoria);
+            intent.putExtra("generoSelecionado", genero);
+            intent.putStringArrayListExtra("tamanhosSelecionads", (ArrayList<String>) listTamanhosSelecionados);
+
+            startActivity(intent);
+        }else{
+            Toast.makeText(getApplicationContext(), "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

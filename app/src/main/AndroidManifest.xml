@@ -26,19 +26,7 @@
         android:theme="@style/Theme.AppGaleria"
         tools:targetApi="s">
         <activity
-            android:name=".DetalheMoldeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EditarMoldeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EditarContatoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EditarAviamentoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EditarContato"
+            android:name=".activity.MoldeDetalheActivity"
             android:exported="false" />
         <activity
             android:name=".activity.cadastros.CadastroMoldeActivity"

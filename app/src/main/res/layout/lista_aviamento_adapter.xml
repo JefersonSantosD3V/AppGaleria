@@ -40,7 +40,7 @@
             android:text="Nome"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/purple_700"
             android:layout_marginTop="5dp"
             android:layout_marginStart="90dp"
             tools:ignore="HardcodedText" />
@@ -62,7 +62,7 @@
             android:text="Observação"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/purple_700"
             android:layout_marginTop="5dp"
             android:layout_marginStart="90dp"
             tools:ignore="HardcodedText" />
@@ -90,7 +90,7 @@
                 android:text="Quantidade"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/black"
+                android:textColor="@color/purple_700"
                 android:layout_marginTop="5dp"
                 tools:ignore="HardcodedText" />
 

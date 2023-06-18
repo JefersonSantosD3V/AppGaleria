@@ -56,8 +56,8 @@ public class MoldeAdapter extends RecyclerView.Adapter<MoldeAdapter.MyViewHolder
 
         if(favorito){
             holder.likeButton.setLiked(idsFavoritos.contains(molde.getId()));
-        //}else {
-            //holder.likeButton.setVisibility(View.GONE);
+        }else {
+            holder.likeButton.setVisibility(View.GONE);
         }
 
         holder.likeButton.setOnLikeListener(new OnLikeListener() {

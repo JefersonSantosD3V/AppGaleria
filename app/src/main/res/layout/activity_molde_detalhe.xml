@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".activity.MoldeDetalheActivity">
+
+    <com.smarteist.autoimageslider.SliderView
+        android:id="@+id/moldeDetalhe_sliderView"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:paddingTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moldeDetalhe_btn_fechar"
+        app:sliderAutoCycleEnabled="false"
+        app:sliderIndicatorGravity="center_horizontal|bottom"
+        app:sliderIndicatorMargin="15dp"
+        app:sliderIndicatorOrientation="horizontal"
+        app:sliderIndicatorPadding="3dp"
+        app:sliderIndicatorRadius="2dp"
+        app:sliderIndicatorSelectedColor="#5A5A5A"
+        app:sliderIndicatorUnselectedColor="@color/purple_700"
+        app:sliderStartAutoCycle="false" />
+
+    <TextView
+        android:id="@+id/moldeDetalhe_textNome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moldeDetalhe_sliderView"
+        tools:text=""
+        android:hint="Nome Molde"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/moldeDetalhe_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:text="Descrição"
+        android:textColor="@color/purple_700"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moldeDetalhe_textNome"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/moldeDetalhe_textDescricao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="#808080"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moldeDetalhe_textView"
+        tools:text=""
+        android:hint="Descrição molde"
+        tools:ignore="HardcodedText" />
+
+    <com.like.LikeButton
+        android:id="@+id/moldeDetalhe_likeButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="20dp"
+        app:anim_scale_factor="2"
+        app:icon_size="50dp"
+        app:icon_type="Star"
+        app:is_enabled="true"
+        app:like_drawable="@drawable/ic_favorito"
+        app:liked="false"
+        app:unlike_drawable="@drawable/ic_favorito_borda"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moldeDetalhe_textDescricao"/>
+
+    <ImageView
+        android:id="@+id/moldeDetalhe_btn_fechar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close"
+        tools:ignore="ContentDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

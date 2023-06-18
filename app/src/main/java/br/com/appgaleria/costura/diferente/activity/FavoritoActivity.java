@@ -1,17 +1,13 @@
 package br.com.appgaleria.costura.diferente.activity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -25,9 +21,7 @@ import java.util.List;
 
 import br.com.appgaleria.costura.diferente.R;
 import br.com.appgaleria.costura.diferente.adapter.MoldeAdapter;
-import br.com.appgaleria.costura.diferente.databinding.ActivityConsultaMoldeBinding;
 import br.com.appgaleria.costura.diferente.databinding.ActivityFavoritoBinding;
-import br.com.appgaleria.costura.diferente.databinding.ActivityMoldeBinding;
 import br.com.appgaleria.costura.diferente.helper.ConfigFirebase;
 import br.com.appgaleria.costura.diferente.model.Favorito;
 import br.com.appgaleria.costura.diferente.model.Molde;
@@ -170,7 +164,9 @@ public class FavoritoActivity extends AppCompatActivity implements MoldeAdapter.
 
     @Override
     public void onClick(Molde molde) {
-
+        Intent intent = new Intent(getApplicationContext(), MoldeDetalheActivity.class);
+        intent.putExtra("moldeSelecionado", molde);
+        startActivity(intent);
     }
 
     @Override

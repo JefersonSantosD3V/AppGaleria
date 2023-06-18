@@ -29,18 +29,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!--EditText
-        android:id="@+id/cad_edit_nome"
-        style="@style/Edit_Text"
-        android:hint="Nome"
-        android:inputType="text"
-        android:layout_marginTop="10dp"
-        android:singleLine="false"
-        app:layout_constraintTop_toTopOf="@id/cad_container_componentes"
-        app:layout_constraintStart_toStartOf="@id/cad_container_componentes"
-        app:layout_constraintEnd_toEndOf="@id/cad_container_componentes"
-        tools:ignore="Autofill,HardcodedText" /-->
-
     <EditText
         android:id="@+id/cad_edit_email"
         style="@style/Edit_Text"
