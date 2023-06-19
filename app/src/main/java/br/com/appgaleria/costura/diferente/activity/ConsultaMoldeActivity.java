@@ -113,10 +113,6 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
         DatabaseReference moldeRef = ConfigFirebase.getFirebase()
                 .child("moldes");
 
-        Log.i("teste4",tipoSelecionado);
-        Log.i("teste5",categoriaSelecionada);
-        Log.i("teste6",generoSelecionado);
-
         moldeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -124,17 +120,20 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
                 for(DataSnapshot data: snapshot.getChildren()){
                     Molde molde = data.getValue(Molde.class);
 
-                   Log.i("teste1",molde.getTipo());
-                   Log.i("teste2",molde.getCategoria());
-                   Log.i("teste3",molde.getGenero());
-                   //  String moldeTipo = molde.getTipo();
-                   // String moldeCategoria = molde.getCategoria();
-                   // String moldeGenero = molde.getGenero();
-
                     if(molde.getTipo().equals(tipoSelecionado)
                         && molde.getCategoria().equals(categoriaSelecionada)
                         && molde.getGenero().equals(generoSelecionado)){
+                        if(!listaTamanhhosSelecionados.isEmpty()) {
+                            for (String tamanhoMolde : molde.getTamanhos()){
+                                if(listaTamanhhosSelecionados.contains(tamanhoMolde)){
+                                    moldeList.add(molde);
+                                    break;
+                                }
+                            }
+
+                        }else{
                             moldeList.add(molde);
+                        }
                     }
                 }
                 listEmpty();
