@@ -274,7 +274,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/molde_btn_filtrar"
         style="@style/Buttons_Default"
-        android:onClick="filtrar"
+        android:onClick="filtrarMoldes"
         android:text="@string/btn_filtrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

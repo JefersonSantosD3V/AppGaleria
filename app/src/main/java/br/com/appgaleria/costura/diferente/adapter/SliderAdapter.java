@@ -37,9 +37,17 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder>
 
         Picasso.get().load(imagemUpload.getCaminhoImagem()).into(viewHolder.imgSlide);
 
-       // Glide.with(context)
-         //       .load(imagemUpload.getCaminhoImagem())
+        //Glide.with(context)
+            //    .load(imagemUpload.getCaminhoImagem())
            //     .into(viewHolder.imgSlide);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     @Override

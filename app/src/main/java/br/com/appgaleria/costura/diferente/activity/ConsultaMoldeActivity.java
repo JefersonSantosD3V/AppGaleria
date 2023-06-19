@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,8 +43,8 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
     private final List<String> idsFavoritos = new ArrayList<>();
     private MoldeAdapter moldeAdapter;
     private AlertDialog dialog;
-    String tipoSelecionado,categoriaSelecionada,generoSelecionado;
-    List<String> listaTamanhhosSelecionados = new ArrayList<>();
+    private String tipoSelecionado,categoriaSelecionada,generoSelecionado;
+    private List<String> listaTamanhhosSelecionados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,90 +83,6 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
         binding.rvMoldes.setAdapter(moldeAdapter);
     }
 
-/*
-    private void recuperaFavoritos() {
-        if (ConfigFirebase.getAutentifica()) {
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference favoritosRef = database.getReference("favoritos");
-
-            Query query = favoritosRef;
-
-            if(tipoSelecionado != null){
-                query = query.orderByChild(tipoSelecionado);
-            }
-            if(categoriaSelecionada != null){
-                query = query.orderByChild(categoriaSelecionada);
-            }
-            if(generoSelecionado != null){
-                query = query.orderByChild(generoSelecionado);
-            }
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    idsFavoritos.clear();
-
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        String idFavorito = ds.getValue(String.class);
-
-
-                            idsFavoritos.add(idFavorito);
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-    }*/
-
-    private void recuperaMoldes(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference moldesRef = database.getReference("moldes");
-
-        Query query = moldesRef;
-
-        if(tipoSelecionado != null){
-            query = query.orderByChild(tipoSelecionado);
-        }
-        if(categoriaSelecionada != null){
-            query = query.orderByChild(categoriaSelecionada);
-        }
-        if(generoSelecionado != null){
-            query = query.orderByChild(generoSelecionado);
-        }
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                moldeList.clear();
-
-                for(DataSnapshot data: snapshot.getChildren()){
-                    Molde molde = data.getValue(Molde.class);
-
-                    if(listaTamanhhosSelecionados.isEmpty() || listaTamanhhosSelecionados.contains(molde.getTamanhos())){
-                        moldeList.add(molde);
-                    }
-                }
-
-                listEmpty();
-
-                binding.progressBar.setVisibility(View.GONE);
-                Collections.reverse(moldeList);
-                moldeAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-
 
     private void recuperaFavoritos() {
         if (ConfigFirebase.getAutentifica()) {
@@ -190,19 +108,35 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
             });
         }
     }
-/*
+
     private void recuperaMoldes(){
         DatabaseReference moldeRef = ConfigFirebase.getFirebase()
                 .child("moldes");
+
+        Log.i("teste4",tipoSelecionado);
+        Log.i("teste5",categoriaSelecionada);
+        Log.i("teste6",generoSelecionado);
+
         moldeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 moldeList.clear();
                 for(DataSnapshot data: snapshot.getChildren()){
                     Molde molde = data.getValue(Molde.class);
-                    moldeList.add(molde);
-                }
 
+                   Log.i("teste1",molde.getTipo());
+                   Log.i("teste2",molde.getCategoria());
+                   Log.i("teste3",molde.getGenero());
+                   //  String moldeTipo = molde.getTipo();
+                   // String moldeCategoria = molde.getCategoria();
+                   // String moldeGenero = molde.getGenero();
+
+                    if(molde.getTipo().equals(tipoSelecionado)
+                        && molde.getCategoria().equals(categoriaSelecionada)
+                        && molde.getGenero().equals(generoSelecionado)){
+                            moldeList.add(molde);
+                    }
+                }
                 listEmpty();
 
                 binding.progressBar.setVisibility(View.GONE);
@@ -216,7 +150,7 @@ public class ConsultaMoldeActivity extends AppCompatActivity implements MoldeAda
             }
         });
     }
-*/
+
     private void showDialog(Molde molde) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
 

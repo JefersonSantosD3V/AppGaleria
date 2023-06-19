@@ -115,9 +115,9 @@ public class MoldeActivity extends AppCompatActivity {
         tbGG = findViewById(R.id.molde_tb_gg);
         tbEG = findViewById(R.id.molde_tb_eg);
         tbSM = findViewById(R.id.molde_tb_sm);
-        tipo = null;
-        categoria = null;
-        genero = null;
+        tipo = "";
+        categoria = "";
+        genero = "";
     }
 
     private void criarListasDropdown(){
@@ -212,9 +212,9 @@ public class MoldeActivity extends AppCompatActivity {
         }
     }
 
-    public void filtrar(View view) {
+    public void filtrarMoldes(View view) {
 
-        if(!tipo.isEmpty() && !categoria.isEmpty() && !genero.isEmpty() && !listTamanhosSelecionados.isEmpty()) {
+        if(!tipo.isEmpty() && !categoria.isEmpty() && !genero.isEmpty()) {
 
             Intent intent = new Intent(MoldeActivity.this, ConsultaMoldeActivity.class);
 
@@ -224,7 +224,7 @@ public class MoldeActivity extends AppCompatActivity {
             intent.putStringArrayListExtra("tamanhosSelecionads", (ArrayList<String>) listTamanhosSelecionados);
 
             startActivity(intent);
-        }else{
+        }else {
             Toast.makeText(getApplicationContext(), "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
         }
     }

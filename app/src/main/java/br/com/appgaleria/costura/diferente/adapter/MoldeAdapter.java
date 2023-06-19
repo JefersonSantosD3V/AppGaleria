@@ -52,7 +52,6 @@ public class MoldeAdapter extends RecyclerView.Adapter<MoldeAdapter.MyViewHolder
         Molde molde = listaMoldes.get(position);
 
         holder.txtNomeMolde.setText(molde.getNome());
-        holder.txtDescricaoMolde.setText(molde.getDescricao());
 
         if(favorito){
             holder.likeButton.setLiked(idsFavoritos.contains(molde.getId()));
@@ -112,7 +111,6 @@ public class MoldeAdapter extends RecyclerView.Adapter<MoldeAdapter.MyViewHolder
             super(itemView);
            imagemMolde = itemView.findViewById(R.id.imgAdapterMolde_Foto);
            txtNomeMolde = itemView.findViewById(R.id.textAdapterMolde_Nome);
-           txtDescricaoMolde = itemView.findViewById(R.id.textAdapterMolde_Descrição);
            likeButton = itemView.findViewById(R.id.likeButton);
         }
     }

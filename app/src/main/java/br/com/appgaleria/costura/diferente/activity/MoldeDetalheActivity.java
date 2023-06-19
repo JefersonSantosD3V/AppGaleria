@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Matrix;
 import android.os.Bundle;
+import android.view.ScaleGestureDetector;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -29,7 +31,7 @@ public class MoldeDetalheActivity extends AppCompatActivity {
 
     private ActivityMoldeDetalheBinding binding;
     private Molde molde;
-    private ImageView img_btn_fechar;
+    private ImageView img_btn_fechar,imgSlider;
     private final List<String> idsFavoritos = new ArrayList<>();
 
     @Override
@@ -49,6 +51,8 @@ public class MoldeDetalheActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        //binding.moldeDetalheSliderView.setSliderTransformAnimation();
     }
 
     private void getExtra(){
@@ -73,9 +77,11 @@ public class MoldeDetalheActivity extends AppCompatActivity {
                 Favorito.salvar(idsFavoritos);
             }
         });
+
     }
 
     private void configDados(){
+
         binding.moldeDetalheSliderView.setSliderAdapter(new SliderAdapter(molde.getUrlsImagens()));
         binding.moldeDetalheSliderView.stopAutoCycle();
         //binding.moldeDetalheSliderView.startAutoCycle();
